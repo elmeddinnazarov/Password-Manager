@@ -86,7 +86,6 @@ def add_user():
             enckey=key.encode()
             key_hash=hashlib.sha512(enckey).hexdigest()
 
-
             mail_hash=str(mail_hash)
             pswd_hash=str(pswd_hash)
             key_hash=str(key_hash)
@@ -120,28 +119,26 @@ def login():
             login_mail=hashlib.sha512(encval_mail).hexdigest()
             login_pswd=hashlib.sha512(encval_pswd).hexdigest()
 
-            with open('passwords.txt', 'r') as r:
-                count=0
-                lines=r.readlines()
-                for line in lines:
-                    whip = ast.literal_eval(line)
-                    # print(whip)
-                    # print(whip["hashed mail"],whip["hashed password"])
-                    if login_mail==whip["hashed mail"] and login_pswd==whip["hashed password"]:
-                        count+=1
-                        r.close()
-                        print("doğrulama başarılı")
-                        return True
-                    else:
-                        count+=1
-                        r.close()
-                        print("doğrulama başarısız")
-                        print(login_mail,"\n",whip["hashed mail"])
-                        print(login_pswd,"\n",whip["hashed password"])
-                        return False
-            
-        else:
-            continue            
+            try:
+                with open('passwords.txt', 'r') as r:
+                    lines=r.readlines()
+                    for line in lines:
+                        user=ast.literal_eval(line.strip())
+                        if login_mail == user["hashed mail"] and login_pswd == user["hashed password"]:
+                            print("giriş başarılı")
+                            break
+                        else:
+                            sec = input("Mail or Password is not correct!\n1- try again,\n2- Sing up,\nq- Exit\n__:")
+                            if sec == "1":
+                                continue
+                            elif sec == "2":
+                                add_user()
+                                break
+                            elif sec.lower() == "q":
+                                break
+            except FileNotFoundError:
+                print("Henüz Sisteme kullanıcı eklenmedi")
+        break
 
 def control_login():
     if login():
