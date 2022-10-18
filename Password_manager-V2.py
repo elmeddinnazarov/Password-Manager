@@ -298,6 +298,7 @@ def sign_in():
                 with open('passwords.txt', 'r') as r:
                     lines = r.readlines()
                     for line in lines:
+                        # print(user["mail"],"\n",)
                         user = ast.literal_eval(line.strip())
                         if login_mail == user["mail"] and login_pswd == user["password"]:
                             current_user = user
@@ -320,6 +321,7 @@ def sign_in():
                 print("User not found")
 
 
+
 def signed_in(current_user, mail, pswd):
     sign_int = input("""
     Welcome back {} {},
@@ -331,6 +333,7 @@ def signed_in(current_user, mail, pswd):
 
     : """.format(current_user["first name"], current_user["last name"]))
 
-    
+
 
 main()
+
