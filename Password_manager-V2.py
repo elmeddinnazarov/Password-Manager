@@ -1,14 +1,9 @@
 import hashlib
 import ast
-
-
-def main():
-
-    intro()
-
+import json
 
 def intro():
-
+    
     text = """
         Welcome to Password Manager!
 
@@ -85,6 +80,17 @@ def validate_ns(name, surname):
     else:
         return True
 
+def wrong_attempt():
+    sec = input(
+        "User not found or mail or password is not correct!\n1- try again,\n2- Restore Password\n3- Sing up,\nq- Exit\n__:")
+    if sec == "1":
+        sign_in()
+    elif sec == "2":
+        restore_pswd()
+    elif sec == "3":
+        sign_up()
+    else:
+        print("bye bye")
 
 def restore_pswd():
     email_correct = False
@@ -146,48 +152,42 @@ def restore_pswd():
             mail_hash = str(mail_hash)
             key_hash = str(key_hash)
             nmbr_hash = str(nmbr_hash)
+            try:
+                with open("passwords.json") as r:
+                    big_dict=json.load(r)
+                    users = big_dict["users"]
 
-            with open('passwords.txt', 'r') as r:
-                lines = r.readlines()
-                for line in lines:
-                    user = ast.literal_eval(line.strip())
-                    if mail_hash == user["mail"] and key_hash == user["key"] and nmbr_hash == user["number"] and first_name == user["first name"] and last_name == user["last name"]:
-                        print("Verification Complated! \n\n")
-                        pswd_correct = True
-                        while pswd_correct:
-                            new_pswd_1 = input(
-                                "Please enter your new password: ")
-                            new_pswd_2 = input(
-                                "Enter your new password again: ")
-                            if not new_pswd_1 == new_pswd_2:
-                                print(
-                                    "passwords are not the same! Please enter again!")
-                            else:
-                                if validate_pswd(new_pswd_1):
-                                    pswd_correct = False
-                                    encpswd = new_pswd_1.encode()
-                                    new_pswd = hashlib.sha512(
-                                        encpswd).hexdigest()
-                                    line = line.replace(
-                                        user["password"], new_pswd)
-                                    with open('passwords.txt', 'w') as new_data:
-                                        new_data.write(line)
-                        input(
-                            "Password successfully changed! Click 'Enter' to Main Menu: ")
-                        intro()
-
-                    else:
-                        sec = input(
-                            "Mail or Password is not correct!\n1- try again,\n2- Restore Password\n3- Sing up,\nq- Exit\n__:")
-                        if sec == "1":
-                            sign_in()
-                        elif sec == "2":
-                            restore_pswd()
-                        elif sec == "3":
-                            sign_up()
+            except FileNotFoundError:
+                wrong_attempt()
+            
+            for user in users:
+                if mail_hash == user["mail"] and key_hash == user["key"] and nmbr_hash == user["number"] and first_name == user["first name"] and last_name == user["last name"]:
+                    print("Verification Complated! \n\n")
+                    pswd_correct = True
+                    while pswd_correct:
+                        new_mail_1 = input(
+                            "Please enter your new password: ")
+                        new_mail_2 = input(
+                            "Enter your new password again: ")
+                        if not new_mail_1 == new_mail_2:
+                            print(
+                                "passwords are not the same! Please enter again!")
                         else:
-                            break
+                            if validate_pswd(new_mail_1):
+                                pswd_correct = False
+                                encpswd = new_mail_1.encode()
+                                new_pswd = hashlib.sha512(encpswd).hexdigest()
 
+                                user["password"] = new_pswd
+                                big_dict["users"] = users
+                                json.dumps(big_dict, indent=4)
+
+                                with open("passwords.json", "w") as r:
+                                    json.dump(big_dict, r)
+                                input("Password successfully changed! Click 'Enter' to Main Menu: ")
+                                intro()
+                    else:
+                        wrong_attempt()
 
 def sign_up():
     email_correct = False
@@ -242,9 +242,6 @@ def sign_up():
                 numb_correct = True
 
         else:
-            source = input(
-                "Platform name where the user is used: ").capitalize()
-
             encpswd = pswd.encode()
             pswd_hash = hashlib.sha512(encpswd).hexdigest()
 
@@ -261,17 +258,30 @@ def sign_up():
             pswd_hash = str(pswd_hash)
             key_hash = str(key_hash)
             nmbr_hash = str(nmbr_hash)
-            result_dict = {}
-            result_dict["source"] = source
-            result_dict["first name"] = first_name
-            result_dict["last name"] = last_name
-            result_dict["number"] = nmbr_hash
-            result_dict["mail"] = mail_hash
-            result_dict["password"] = pswd_hash
-            result_dict["key"] = key_hash
-            f = open("passwords.txt", "a")
-            f.write(str(result_dict)+"\n")
-            f.close()
+
+            try:
+                with open('passwords.json') as r:
+                    big_dict = json.load(r)
+                    users = big_dict["users"]
+            except FileNotFoundError:
+                big_dict = {}
+                users = []
+
+            user = {}
+            user["first name"] = first_name
+            user["last name"] = last_name
+            user["number"] = nmbr_hash
+            user["mail"] = mail_hash
+            user["password"] = pswd_hash
+            user["key"] = key_hash
+
+            users.append(user)
+            big_dict["users"] = users
+            json.dumps(big_dict, indent=4)
+
+            with open("passwords.json", "w") as r:
+                json.dump(big_dict, r)
+
             print("Welcome", first_name, last_name,
                   "\nSing Up succesfully ended")
             intt = input("Enter to 'Y' go to main menu, 'Q' to exit...")
@@ -295,45 +305,120 @@ def sign_in():
             login_pswd = hashlib.sha512(encval_pswd).hexdigest()
 
             try:
-                with open('passwords.txt', 'r') as r:
-                    lines = r.readlines()
-                    for line in lines:
-                        # print(user["mail"],"\n",)
-                        user = ast.literal_eval(line.strip())
-                        if login_mail == user["mail"] and login_pswd == user["password"]:
-                            current_user = user
-                            print("Login Succesfully ended\n\nWeolcome {} {}".format(
-                                user["first name"], user["last name"]))
-                            signed_in(current_user, mail_int, pswd_int)
-                            break
-                        else:
-                            sec = input(
-                                "Mail or Password is not correct!\n1- try again,\n2- Restore Password\n3- Sing up,\nq- Exit\n__:")
-                            if sec == "1":
-                                sign_in()
-                            elif sec == "2":
-                                restore_pswd()
-                            elif sec == "3":
-                                sign_up()
-                            else:
-                                break
+                with open("passwords.json") as r:
+                    big_dict = json.load(r)
+                    users = big_dict["users"]
             except FileNotFoundError:
-                print("User not found")
+                wrong_attempt()
+
+            for user in users:
+                if login_mail == user["mail"] and login_pswd == user["password"]:
+                    current_user = user
+                    signed_in(current_user)
+                    break
+                else:
+                    wrong_attempt()
 
 
 
-def signed_in(current_user, mail, pswd):
+def signed_in(current_user):
     sign_int = input("""
     Welcome back {} {},
     
-    1- Accounts,
-    2- Passwords,
-    3- Log out,
+    1- Platforms,
+    2- Change Account's Password,
+    3- Change Account's Mail,
+    4- Change Account's Secret Key,
+    5- Log out,
     q- Exit
 
     : """.format(current_user["first name"], current_user["last name"]))
 
+    if sign_int == "1":
+        user_platforms()
+    elif sign_int == "2":
+        pl_pswd_change(current_user)
+    elif sign_int == "3":
+        pl_mail_change(current_user)
+    elif sign_int == "4":
+        pl_key_change()
+    elif sign_int == "5":
+        intro()
+    else:
+        pass
+
+def pl_pswd_change(current_user):
+            try:
+                with open("passwords.json") as r:
+                    big_dict=json.load(r)
+                    users = big_dict["users"]
+            except FileNotFoundError:
+                wrong_attempt()
+            for user in users:
+                    pswd_correct = True
+                    while pswd_correct:
+                        new_mail_1 = input(
+                            "Please enter your new password: ")
+                        new_mail_2 = input(
+                            "Enter your new password again: ")
+                        if not new_mail_1 == new_mail_2:
+                            print(
+                                "passwords are not the same! Please enter again!")
+                        else:
+                            if validate_pswd(new_mail_1):
+                                pswd_correct = False
+                                encpswd = new_mail_1.encode()
+                                new_pswd = hashlib.sha512(encpswd).hexdigest()
+
+                                user["password"] = new_pswd
+                                big_dict["users"] = users
+                                json.dumps(big_dict, indent=4)
+
+                                with open("passwords.json", "w") as r:
+                                    json.dump(big_dict, r)
+                                input("Password successfully changed! Click 'Enter' to Account Menu: ")
+                                signed_in(current_user)
+                    else:
+                        wrong_attempt()
+
+def pl_mail_change(current_user):
+    try:
+        with open("passwords.json") as r:
+            big_dict=json.load(r)
+            users = big_dict["users"]
+    except FileNotFoundError:
+        wrong_attempt()
+    for user in users:
+            mail_correct = True
+            while mail_correct:
+                new_mail_1 = input(
+                    "Please enter your new Mail Address: ")
+                new_mail_2 = input(
+                    "Enter your Mail Address again: ")
+                if not new_mail_1 == new_mail_2:
+                    print(
+                        "Mail Addresses are not the same! Please enter again!")
+                else:
+                    if validate_mail(new_mail_1):
+                        mail_correct = False
+                        encpswd = new_mail_1.encode()
+                        new_mail = hashlib.sha512(encpswd).hexdigest()
+
+                        user["mail"] = new_mail
+                        big_dict["users"] = users
+                        json.dumps(big_dict, indent=4)
+
+                        with open("passwords.json", "w") as r:
+                            json.dump(big_dict, r)
+                        input("Mail Address successfully changed! Click 'Enter' to Account Menu: ")
+                        signed_in(current_user)
+            else:
+                wrong_attempt()
 
 
-main()
 
+
+
+
+
+intro()
