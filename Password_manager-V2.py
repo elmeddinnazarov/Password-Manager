@@ -632,10 +632,6 @@ def add_platform(current_user, big_dict):
 #                     Password: {}
 #                     """.format(platform["pl_site"], decyrption(platform["pl_mail"]), decyrption(platform["pl_username"]), decyrption(platform["pl_pswd"])))
 
-        except KeyError:
-            pl_input = input("You did not add platform before! To add platform enter 'Y', 'Q' to exit!")
-            if pl_input.isalpha and pl_input.lower() == "y":
-                add_platform(current_user, big_dict)
 
 
 intro()
