@@ -337,7 +337,6 @@ def sign_up():
             intt = input("Enter to 'Y' go to main menu, 'Q' to exit...")
             if intt.lower() == "y":
                 intro()
-                status_signup = False
             else:
                 status_signup = False
 
@@ -531,53 +530,60 @@ def user_platforms(current_user, big_dict):
         "q a basılanda sign in e gedir. ne yazılmalıdır ki getmesin "
 
 def show_platforms(current_user, big_dict):
-        pl_info = input("""
-    
-        1- List All Platforms,
-        2- List by Platform name,
-        3- Log out,
-        4- Back Menu,
-        q- Exit
+    try:
+        platforms = current_user["platforms"]
+    except KeyError:
+        print("You did not add any platform before!")
+        user_platforms(current_user, big_dict)
 
-        : """)
+    pl_info = input("""
 
-        if pl_info == "1":
-            all_platforms(current_user)
-        elif pl_info == "2":
-            list_by_name(current_user)
-        elif pl_info == "3":
-            intro()
-        elif pl_info == "4":
-            user_platforms()
-        else:
-            pass
+    1- List All Platforms,
+    2- List by Platform name,
+    3- Log out,
+    4- Back Menu,
+    q- Exit
 
-def all_platforms(current_user):
-    with open("passwords.json") as r:
-        big_dict = json.load(r)
-        users = big_dict["users"]
-        current_user
+    : """)
 
-        try:
-            platforms = current_user["platforms"]
-            pl_exsist = True
+    if pl_info == "1":
+        all_platforms(platforms, big_dict, current_user)
+    elif pl_info == "2":
+        list_by_name(current_user, platforms, big_dict)
+    elif pl_info == "3":
+        intro()
+    elif pl_info == "4":
+        user_platforms()
+    else:
+        pass
 
-            for platform in platforms:
-                print("""
-                Platform Name: {}
-                Mail Address: {}
-                Username: {}
-                Password: {}
-                """.format(platform["pl_site"], decyrption(platform["pl_mail"]), decyrption(platform["pl_username"]), decyrption(platform["pl_pswd"])))
+def all_platforms(platforms, big_dict, current_user):
+    for platform in platforms:
+        print("""
+        Platform Name: {}
+        Mail Address: {}
+        Username: {}
+        Password: {}
+        """.format(platform["pl_site"], decyrption(platform["pl_mail"]), decyrption(platform["pl_username"]), decyrption(platform["pl_pswd"])))
+    user_platforms(current_user, big_dict)
 
-        except KeyError:
-            pl_input = input("You did not add platform before! To add platform enter 'Y', 'Q' to exit!")
-            if pl_input.isalpha and pl_input.lower() == "y":
-                add_platform(current_user, big_dict)
-                pl_exsist = False
+def list_by_name(current_user, platforms, big_dict):
+    pl_name = input("Write Platform Name: ")
+    not_exist = True
+    for platform in platforms:
+        if platform["pl_site"] == pl_name:
+            print("""
+            Platform Name: {}
+            Mail Address: {}
+            Username: {}
+            Password: {}
+            """.format(platform["pl_site"], decyrption(platform["pl_mail"]), decyrption(platform["pl_username"]), decyrption(platform["pl_pswd"])))
+            not_exist = False
+            user_platforms(current_user, big_dict)
 
-        if pl_exsist:
-            pass # platformları güzel bir formatta listeleyeceksın
+    if not_exist == True:
+        print("The Platform Which is you search not exist!")
+        show_platforms(current_user, big_dict)
                 
 def add_platform(current_user, big_dict):
     print("\nPlease enter the platform information you want to add!\n")
@@ -609,29 +615,9 @@ def add_platform(current_user, big_dict):
     print("\nPlatform added successfully.\n")
     user_platforms(current_user, big_dict)
 
-# def list_by_name(current_user):
-#     pl_name = input("Write Platform Name to show information: ")
-#     with open("passwords.json") as r:
-#         big_dict = json.load(r)
-#         users = big_dict["users"]
-#         current_user
-
-#         try:
-#             platforms = current_user["platforms"]
-#             print(platform)
-
-# Hele bu bölüm hazır deyilş hazır olanda push eliyecem xeber eliyecem sene
 
 
-#             for platform in platforms:
-#                 if platform == pl_name:
-#                     print("""
-#                     Platform Name: {}
-#                     Mail Address: {}
-#                     Username: {}
-#                     Password: {}
-#                     """.format(platform["pl_site"], decyrption(platform["pl_mail"]), decyrption(platform["pl_username"]), decyrption(platform["pl_pswd"])))
-
+        
 
 
 intro()
