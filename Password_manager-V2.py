@@ -140,18 +140,10 @@ def restore_pswd():
                 numb_correct = True
         else:
 
-            encmail = mail.encode()
-            mail_hash = hashlib.sha512(encmail).hexdigest()
+            mail_hash = str(hashlib.sha512(mail.encode()).hexdigest())
+            key_hash = str(hashlib.sha512(key.encode()).hexdigest())
+            nmbr_hash = str(hashlib.sha512(nmbr.encode()).hexdigest())
 
-            enckey = key.encode()
-            key_hash = hashlib.sha512(enckey).hexdigest()
-
-            encnmbr = nmbr.encode()
-            nmbr_hash = hashlib.sha512(encnmbr).hexdigest()
-
-            mail_hash = str(mail_hash)
-            key_hash = str(key_hash)
-            nmbr_hash = str(nmbr_hash)
             try:
                 with open("passwords.json") as r:
                     big_dict=json.load(r)
@@ -160,6 +152,7 @@ def restore_pswd():
             except FileNotFoundError:
                 wrong_attempt()
                 status = False
+
             login_attempt = False
             for user in users:
                 if mail_hash == user["mail"] and key_hash == user["key"] and nmbr_hash == user["number"] and first_name == user["first name"] and last_name == user["last name"]:
@@ -176,8 +169,7 @@ def restore_pswd():
                         else:
                             if validate_pswd(new_key_1):
                                 pswd_correct = False
-                                encpswd = new_key_1.encode()
-                                new_pswd = hashlib.sha512(encpswd).hexdigest()
+                                new_pswd = hashlib.sha512(new_key_1.encode()).hexdigest()
 
                                 user["password"] = new_pswd
                                 big_dict["users"] = users
@@ -292,22 +284,10 @@ def sign_up():
                 numb_correct = True
 
         else:
-            encpswd = pswd.encode()
-            pswd_hash = hashlib.sha512(encpswd).hexdigest()
-
-            encmail = mail.encode()
-            mail_hash = hashlib.sha512(encmail).hexdigest()
-
-            enckey = key.encode()
-            key_hash = hashlib.sha512(enckey).hexdigest()
-
-            encnmbr = nmbr.encode()
-            nmbr_hash = hashlib.sha512(encnmbr).hexdigest()
-
-            mail_hash = str(mail_hash)
-            pswd_hash = str(pswd_hash)
-            key_hash = str(key_hash)
-            nmbr_hash = str(nmbr_hash)
+            pswd_hash = str(hashlib.sha512(pswd.encode()).hexdigest())
+            mail_hash = str(hashlib.sha512(mail.encode()).hexdigest())
+            key_hash = str(hashlib.sha512(key.encode()).hexdigest())
+            nmbr_hash = str(hashlib.sha512(nmbr.encode()).hexdigest())
 
             try:
                 with open('passwords.json') as r:
@@ -317,14 +297,14 @@ def sign_up():
                 big_dict = {}
                 users = []
 
-            user = {}
-            user["first name"] = first_name
-            user["last name"] = last_name
-            user["number"] = nmbr_hash
-            user["mail"] = mail_hash
-            user["password"] = pswd_hash
-            user["key"] = key_hash
-
+            user = {
+                "first name": first_name,
+                "last name": last_name,
+                "number": nmbr_hash,
+                "mail": mail_hash,
+                "password": pswd_hash,
+                "key": key_hash
+            }
             users.append(user)
             big_dict["users"] = users
             json.dumps(big_dict, indent=4)
@@ -347,11 +327,8 @@ def sign_in():
         pswd_int = input("Your password: ")
         if validate_mail(mail_int) and validate_pswd(pswd_int):
 
-            encval_mail = mail_int.encode()
-            encval_pswd = pswd_int.encode()
-
-            login_mail = hashlib.sha512(encval_mail).hexdigest()
-            login_pswd = hashlib.sha512(encval_pswd).hexdigest()
+            login_mail = hashlib.sha512(mail_int.encode()).hexdigest()
+            login_pswd = hashlib.sha512(pswd_int.encode()).hexdigest()
 
             try:
                 with open("passwords.json") as r:
@@ -370,194 +347,173 @@ def sign_in():
                 wrong_attempt()
                 status_signin = False
 
-
-
-
 def signed_in(current_user, big_dict):
-    sign_int = input("""
-    Welcome back {} {},
-    
-    1- Platforms,
-    2- Change Account's Password,
-    3- Change Account's Mail,
-    4- Change Account's Secret Key,
-    5- Log out,
-    q- Exit
+    while True:
+        sign_int = input("""
+        Welcome back {} {},
+        
+        1- Platforms,
+        2- Change Account's Password,
+        3- Change Account's Mail,
+        4- Change Account's Secret Key,
+        5- Log out,
+        q- Exit
 
-    : """.format(current_user["first name"], current_user["last name"]))
+        : """.format(current_user["first name"], current_user["last name"]))
 
-    if sign_int == "1":
-        user_platforms(current_user, big_dict)
-    elif sign_int == "2":
-        account_pswd_change(current_user)
-    elif sign_int == "3":
-        account_mail_change(current_user)
-    elif sign_int == "4":
-        account_key_change(current_user)
-    elif sign_int == "5":
-        intro()
+        if sign_int == "1":
+            user_platforms(current_user, big_dict)
+        elif sign_int == "2":
+            account_pswd_change(current_user, big_dict)
+        elif sign_int == "3":
+            account_mail_change(current_user, big_dict)
+        elif sign_int == "4":
+            account_key_change(current_user, big_dict)
+        elif sign_int == "5":
+            intro()
+        elif sign_int.lower() == "q":
+            break
+        else:
+            print("\nYou made the wrong choice!")
+
+def account_pswd_change(current_user, big_dict):
+    pswd_correct = True
+    while pswd_correct:
+        new_key_1 = input(
+            "Please enter your new password: ")
+        new_key_2 = input(
+            "Enter your new password again: ")
+        if not new_key_1 == new_key_2:
+            print(
+                "passwords are not the same! Please enter again!")
+        else:
+            if validate_pswd(new_key_1):
+                pswd_correct = False
+                
+    encpswd = new_key_1.encode()
+    new_pswd = hashlib.sha512(encpswd).hexdigest()
+    if current_user in big_dict["users"]:
+        current_user["password"] = new_pswd
     else:
-        pass
+        print("bilinmeyen hata")
+    json.dumps(big_dict, indent=4)
+    with open("passwords.json", "w") as r:
+        json.dump(big_dict, r)
+    input("Password successfully changed! Click 'Enter' to Account Menu: ")
+    signed_in(current_user, big_dict)
 
-def account_pswd_change(current_user):
-            try:
-                with open("passwords.json") as r:
-                    big_dict=json.load(r)
-                    users = big_dict["users"]
-            except FileNotFoundError:
-                wrong_attempt()
-            for user in users:
-                    pswd_correct = True
-                    while pswd_correct:
-                        new_key_1 = input(
-                            "Please enter your new password: ")
-                        new_key_2 = input(
-                            "Enter your new password again: ")
-                        if not new_key_1 == new_key_2:
-                            print(
-                                "passwords are not the same! Please enter again!")
-                        else:
-                            if validate_pswd(new_key_1):
-                                pswd_correct = False
-                                encpswd = new_key_1.encode()
-                                new_pswd = hashlib.sha512(encpswd).hexdigest()
+def account_mail_change(current_user, big_dict):
+    mail_correct = True
+    while mail_correct:
+        new_mail_1 = input(
+            "Please enter your new mail: ")
+        new_mail_2 = input(
+            "Enter your new mail again: ")
+        if not new_mail_1 == new_mail_2:
+            print(
+                "Mails are not the same! Please enter again!")
+        else:
+            if validate_mail(new_mail_1):
+                mail_correct = False
+                
+    encmail = new_mail_1.encode()
+    new_mail = hashlib.sha512(encmail).hexdigest()
+    if current_user in big_dict["users"]:
+        current_user["mail"] = new_mail
 
-                                user["password"] = new_pswd
-                                big_dict["users"] = users
-                                json.dumps(big_dict, indent=4)
+    json.dumps(big_dict, indent=4)
+    with open("passwords.json", "w") as r:
+        json.dump(big_dict, r)
+    input("Mail successfully changed! Click 'Enter' to Account Menu: ")
+    signed_in(current_user, big_dict)
 
-                                with open("passwords.json", "w") as r:
-                                    json.dump(big_dict, r)
-                                input("Password successfully changed! Click 'Enter' to Account Menu: ")
-                                signed_in(current_user)
-                    else:
-                        wrong_attempt()
+def account_key_change(current_user, big_dict):
+    key_correct = True
+    while key_correct:
+        new_key_1 = input(
+            "Please enter your new Secret Key: ")
+        new_key_2 = input(
+            "Enter your new Secret Key again: ")
+        if not new_key_1 == new_key_2:
+            print(
+                "Secret Key are not the same! Please enter again!")
+        else:
+            if validate_key(new_key_1):
+                key_correct = False
+                
+    enckey = new_key_1.encode()
+    new_key = hashlib.sha512(enckey).hexdigest()
+    if current_user in big_dict["users"]:
+        current_user["key"] = new_key
 
-def account_mail_change(current_user):
-    try:
-        with open("passwords.json") as r:
-            big_dict=json.load(r)
-            users = big_dict["users"]
-    except FileNotFoundError:
-        wrong_attempt()
-    for user in users:
-            mail_correct = True
-            while mail_correct:
-                new_key_1 = input(
-                    "Please enter your new Mail Address: ")
-                new_key_2 = input(
-                    "Enter your Mail Address again: ")
-                if not new_key_1 == new_key_2:
-                    print(
-                        "Mail Addresses are not the same! Please enter again!")
-                else:
-                    if validate_mail(new_key_1):
-                        mail_correct = False
-                        encpswd = new_key_1.encode()
-                        new_mail = hashlib.sha512(encpswd).hexdigest()
+    json.dumps(big_dict, indent=4)
+    with open("passwords.json", "w") as r:
+        json.dump(big_dict, r)
+    input("Secret Key successfully changed! Click 'Enter' to Account Menu: ")
+    signed_in(current_user, big_dict)
 
-                        user["mail"] = new_mail
-                        big_dict["users"] = users
-                        json.dumps(big_dict, indent=4)
-
-                        with open("passwords.json", "w") as r:
-                            json.dump(big_dict, r)
-                        input("Mail Address successfully changed! Click 'Enter' to Account Menu: ")
-                        signed_in(current_user)
-            else:
-                wrong_attempt()
-
-def account_key_change(current_user):
-    try:
-        with open("passwords.json") as r:
-            big_dict=json.load(r)
-            users = big_dict["users"]
-    except FileNotFoundError:
-        wrong_attempt()
-    for user in users:
-            key_correct = True
-            while key_correct:
-                new_key_1 = input(
-                    "Please enter your new Secret Key: ")
-                new_key_2 = input(
-                    "Enter your Secret Key again: ")
-                if not new_key_1 == new_key_2:
-                    print(
-                        "Secret Keys are not the same! Please enter again!")
-                else:
-                    if validate_key(new_key_1):
-                        key_correct = False
-                        encpswd = new_key_1.encode()
-                        new_key = hashlib.sha512(encpswd).hexdigest()
-
-                        user["mail"] = new_key
-                        big_dict["users"] = users
-                        json.dumps(big_dict, indent=4)
-
-                        with open("passwords.json", "w") as r:
-                            json.dump(big_dict, r)
-                        input("Secret Key successfully changed! Click 'Enter' to Account Menu: ")
-                        signed_in(current_user)
-            else:
-                wrong_attempt()
 
 def user_platforms(current_user, big_dict):
-    pl_int = input("""
-    
-    1- Show Platforms,
-    2- Add New Platform,
-    3- Change Platform Information,
-    4- Delete Platform,
-    5- Log out,
-    6- Back Menu,
-    q- Exit
+    platforms = current_user_platforms(current_user, big_dict)
+    while True:
+        pl_int = input("""
+        
+        1- Show Platforms,
+        2- Add New Platform,
+        3- Change Platform Information,
+        4- Delete Platform,
+        5- Log out,
+        6- Back Menu,
+        q- Exit
 
-    : """)
+        : """)
+        if pl_int == "1":
+            show_platforms(current_user, big_dict, platforms)
+        elif pl_int == "2":
+            add_platform(current_user, big_dict)
+        elif pl_int == "3":
+            change_platform_info(current_user, big_dict, platforms)
+        elif pl_int == "4":
+            delete_platform(current_user, big_dict, platforms)
+        elif pl_int == "5":
+            intro()
+        elif pl_int == "6":
+            signed_in(current_user)
+        elif pl_int.lower() == "q":
+            break
+        else:
+            print("\nYou made the wrong choice!")
+            
+def show_platforms(current_user, big_dict, platforms):
+    while True:
+        pl_info = input("""
 
-    if pl_int == "1":
-        show_platforms(current_user, big_dict)
-    elif pl_int == "2":
-        add_platform(current_user, big_dict)
-    elif pl_int == "3":
-        change_pl_info(current_user, big_dict)
-    elif pl_int == "4":
-        delete_platform(current_user, big_dict)
-    elif pl_int == "5":
-        intro()
-    elif pl_int == "6":
-        signed_in(current_user)
-    else:
-        "q a basılanda sign in e gedir. ne yazılmalıdır ki getmesin "
+        1- List All Platforms,
+        2- List by Platform name,
+        3- Log out,
+        4- Back Menu,
+        q- Exit
 
-def show_platforms(current_user, big_dict):
-    try:
-        platforms = current_user["platforms"]
-    except KeyError:
-        print("You did not add any platform before!")
-        user_platforms(current_user, big_dict)
+        : """)
+        if pl_info == "1":
+            all_platforms(platforms)
+            show_platforms(current_user, big_dict)
+        elif pl_info == "2":
+            list_by_name(platforms)
+            if list_by_name:
+                show_platforms(current_user, big_dict)
+            elif list_by_name:
+                show_platforms(current_user, big_dict)
+        elif pl_info == "3":
+            intro()
+        elif pl_info == "4":
+            show_platforms(current_user, big_dict)
+        elif pl_info.lower() == "q":
+            break
+        else:
+            print("\nYou made the wrong choice!")
 
-    pl_info = input("""
-
-    1- List All Platforms,
-    2- List by Platform name,
-    3- Log out,
-    4- Back Menu,
-    q- Exit
-
-    : """)
-
-    if pl_info == "1":
-        all_platforms(platforms, big_dict, current_user)
-    elif pl_info == "2":
-        list_by_name(current_user, platforms, big_dict)
-    elif pl_info == "3":
-        intro()
-    elif pl_info == "4":
-        user_platforms()
-    else:
-        pass
-
-def all_platforms(platforms, big_dict, current_user):
+def all_platforms(platforms):
     for platform in platforms:
         print("""
         Platform Name: {}
@@ -565,12 +521,21 @@ def all_platforms(platforms, big_dict, current_user):
         Username: {}
         Password: {}
         """.format(platform["pl_site"], decyrption(platform["pl_mail"]), decyrption(platform["pl_username"]), decyrption(platform["pl_pswd"])))
-    user_platforms(current_user, big_dict)
+    input("\n\nClick 'Enter' to Platform Menu: \n\n")
 
-def list_by_name(current_user, platforms, big_dict):
+def current_user_platforms(current_user, big_dict):
+    try:
+        platforms = current_user["platforms"]
+        return platforms
+    except KeyError:
+        print("You did not add any platform before!")
+        user_platforms(current_user, big_dict)
+
+def list_by_name(platforms):
     pl_name = input("Write Platform Name: ")
     not_exist = True
     for platform in platforms:
+        print(platform)
         if platform["pl_site"] == pl_name:
             print("""
             Platform Name: {}
@@ -579,11 +544,11 @@ def list_by_name(current_user, platforms, big_dict):
             Password: {}
             """.format(platform["pl_site"], decyrption(platform["pl_mail"]), decyrption(platform["pl_username"]), decyrption(platform["pl_pswd"])))
             not_exist = False
-            user_platforms(current_user, big_dict)
-
+            return True
     if not_exist == True:
         print("The Platform Which is you search not exist!")
-        show_platforms(current_user, big_dict)
+        return False
+    input("\n\nClick 'Enter' to Platform Menu: \n\n")
                 
 def add_platform(current_user, big_dict):
     print("\nPlease enter the platform information you want to add!\n")
@@ -601,11 +566,13 @@ def add_platform(current_user, big_dict):
     except KeyError:
         platforms = []
     
-    platform = {}
-    platform["pl_site"] = pl_site
-    platform["pl_username"] = pl_username
-    platform["pl_mail"] = pl_mail
-    platform["pl_pswd"] = pl_pswd
+    platform = {
+        "pl_site": pl_site,
+        "pl_username": pl_username,
+        "pl_mail": pl_mail,
+        "pl_pswd": pl_pswd
+    }
+
     platforms.append(platform)
     current_user["platforms"] = platforms
     
@@ -615,9 +582,21 @@ def add_platform(current_user, big_dict):
     print("\nPlatform added successfully.\n")
     user_platforms(current_user, big_dict)
 
+# def change_platform_info(current_user, big_dict, platforms):
+#     set = input("""
+
+#     Whitch info you want to change ?
+#     Enter '1' to 'Mail',
+#     Enter '2' to 'Username',
+#     Enter '3' to 'Password'.
+
+#     /...""")
+#     if set == "1":
+#         us_input = validate_mail(input("New mail: "))
 
 
-        
+
+
 
 
 intro()
