@@ -462,6 +462,7 @@ def user_platforms(current_user, big_dict):
         2- Add New Platform,
         3- Change Platform Information,
         4- Delete Platform,
+        7- Restore Last Deletion Process,
         5- Log out,
         6- Back Menu,
         q- Exit
@@ -474,11 +475,16 @@ def user_platforms(current_user, big_dict):
         elif pl_int == "3":
             change_platform_info(current_user, big_dict, platforms)
         elif pl_int == "4":
-            delete_platform(current_user, big_dict, platforms)
+            rm_platform = delete_platform(current_user, big_dict, platforms)
         elif pl_int == "5":
             intro()
         elif pl_int == "6":
-            signed_in(current_user)
+            signed_in(current_user, big_dict)
+        elif pl_int == "7":
+            try:
+                restore_delete(current_user, big_dict, platforms, rm_platform)
+            except UnboundLocalError:
+                print("\nThe system did not detect any previous deletion.")
         elif pl_int.lower() == "q":
             break
         else:
@@ -497,17 +503,14 @@ def show_platforms(current_user, big_dict, platforms):
         : """)
         if pl_info == "1":
             all_platforms(platforms)
-            show_platforms(current_user, big_dict)
+            show_platforms(current_user, big_dict, platforms)
         elif pl_info == "2":
             list_by_name(platforms)
-            if list_by_name:
-                show_platforms(current_user, big_dict)
-            elif list_by_name:
-                show_platforms(current_user, big_dict)
+            show_platforms(current_user, big_dict, platforms)
         elif pl_info == "3":
             intro()
         elif pl_info == "4":
-            show_platforms(current_user, big_dict)
+            user_platforms(current_user, big_dict)
         elif pl_info.lower() == "q":
             break
         else:
@@ -535,21 +538,23 @@ def list_by_name(platforms):
     pl_name = input("Write Platform Name: ")
     not_exist = True
     for platform in platforms:
-        print(platform)
         if platform["pl_site"] == pl_name:
+            platform_name = platform["pl_site"]
+            platform_mail = decyrption(platform["pl_mail"])
+            platform_password = decyrption(platform["pl_pswd"])
+            platform_username = decyrption(platform["pl_username"])
             print("""
             Platform Name: {}
             Mail Address: {}
             Username: {}
             Password: {}
-            """.format(platform["pl_site"], decyrption(platform["pl_mail"]), decyrption(platform["pl_username"]), decyrption(platform["pl_pswd"])))
+            """.format(platform_name, platform_mail, platform_username, platform_password))
             not_exist = False
-            return True
+            return platform_name, platform_username, platform_mail, platform_password
     if not_exist == True:
         print("The Platform Which is you search not exist!")
-        return False
-    input("\n\nClick 'Enter' to Platform Menu: \n\n")
-                
+
+
 def add_platform(current_user, big_dict):
     print("\nPlease enter the platform information you want to add!\n")
     pl_site = input("""Accepted Format: "facebook", "instagram" | Platform Name: """)
@@ -582,20 +587,79 @@ def add_platform(current_user, big_dict):
     print("\nPlatform added successfully.\n")
     user_platforms(current_user, big_dict)
 
-# def change_platform_info(current_user, big_dict, platforms):
-#     set = input("""
+def change_platform_info(current_user, big_dict, platforms):
+    result = list_by_name(platforms)
 
-#     Whitch info you want to change ?
-#     Enter '1' to 'Mail',
-#     Enter '2' to 'Username',
-#     Enter '3' to 'Password'.
+    while True:
+        set = input("""
+        Whitch one you want to change ?
+        Enter '1' to 'Username',
+        Enter '2' to 'Mail Address',
+        Enter '3' to 'Password'.
 
-#     /...""")
-#     if set == "1":
-#         us_input = validate_mail(input("New mail: "))
+        You can choose more than one option like; '23' or '123'
+
+        /...""")
+
+        if not set.isnumeric() and not len(set) <=3:
+            print("You made the wrong choice!")
+
+        else:
+            set = [*set]
+            if "1" in set:
+                username = input("New Username: ")
+            if "2" in set:
+                mail = input("New Mail Address: ")
+            if "3" in set:
+                password = input("New Password: ")
+
+            for platform in platforms:
+                if result[0] == platform["pl_site"]:
+                    try:
+                        platform["pl_username"] = encyrption(username)
+                    except NameError:
+                        pass
+                    try:
+                        platform["pl_mail"] = encyrption(mail)
+                    except NameError:
+                        pass
+                    try:
+                        platform["pl_pswd"] = encyrption(password)
+                    except NameError:
+                        pass
+            json_write(big_dict)
+            break
+def delete_platform(current_user, big_dict, platforms):
+    print("Enter Platform Name which is you want to delete!\n")
+    result = list_by_name(platforms)
+    choice = input("The informations will be delete permanently. Are you sure to delete this platform? \n\nEnter 'C' to cancle, 'Y' to delete: ")
+    status = True
+    while status:
+        if choice.lower() == "c":
+            user_platforms(current_user, big_dict)
+            status = False
+        elif choice.lower() == "y":
+            for platform in platforms:
+                if result[0] == platform["pl_site"]:
+                    platforms.remove(platform)
+                    json_write(big_dict)
+                    status = False
+                    print("Platform has been removed!")
+                    return platform
+        else:
+            print("You made the wrong choice!")
+
+def restore_delete(current_user, big_dict, platforms, removed_platform):
+    input("Click Enter to contuniue restore last deletion process.\n    /... ")
+    platforms.append(removed_platform)
+    json_write(big_dict)
+    print("\nRestore process complate succesfully!")
 
 
-
+def json_write(big_dict):
+    json.dumps(big_dict, indent=4)
+    with open("passwords.json", "w") as file:
+        json.dump(big_dict, file)
 
 
 
