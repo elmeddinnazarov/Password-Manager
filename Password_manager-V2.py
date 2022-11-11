@@ -1,7 +1,6 @@
 import hashlib
 import json
 
-
 def intro():
     
     text = """
@@ -185,6 +184,7 @@ def restore_pswd():
                 status = False
 
 
+
 def encyrption(input_value):
     import random
     import string
@@ -228,6 +228,8 @@ def decyrption(result):
         pw_range+=st_range
     user_pw = "".join(password)
     return user_pw
+
+
 
 def sign_up():
     email_correct = False
@@ -452,10 +454,19 @@ def account_key_change(current_user, big_dict):
     input("Secret Key successfully changed! Click 'Enter' to Account Menu: ")
     signed_in(current_user, big_dict)
 
-
 def user_platforms(current_user, big_dict):
-    platforms = current_user_platforms(current_user, big_dict)
-    while True:
+    try:
+        platforms = current_user["platforms"]
+        status = True
+    except KeyError:
+        m_inp = input("You did not add any platform before!\n\nto add platform enter '1',\nto main menu click enter.\n\n    >...")
+        if m_inp == "1":
+            add_platform(current_user, big_dict)
+        else:
+            status = False
+            signed_in(current_user, big_dict)
+
+    while status:
         pl_int = input("""
         
         1- Show Platforms,
@@ -473,7 +484,7 @@ def user_platforms(current_user, big_dict):
         elif pl_int == "2":
             add_platform(current_user, big_dict)
         elif pl_int == "3":
-            change_platform_info(current_user, big_dict, platforms)
+            change_platform_info(big_dict, platforms)
         elif pl_int == "4":
             rm_platform = delete_platform(current_user, big_dict, platforms)
         elif pl_int == "5":
@@ -482,7 +493,7 @@ def user_platforms(current_user, big_dict):
             signed_in(current_user, big_dict)
         elif pl_int == "7":
             try:
-                restore_delete(current_user, big_dict, platforms, rm_platform)
+                restore_deletion(big_dict, platforms, rm_platform)
             except UnboundLocalError:
                 print("\nThe system did not detect any previous deletion.")
         elif pl_int.lower() == "q":
@@ -525,14 +536,7 @@ def all_platforms(platforms):
         Password: {}
         """.format(platform["pl_site"], decyrption(platform["pl_mail"]), decyrption(platform["pl_username"]), decyrption(platform["pl_pswd"])))
     input("\n\nClick 'Enter' to Platform Menu: \n\n")
-
-def current_user_platforms(current_user, big_dict):
-    try:
-        platforms = current_user["platforms"]
-        return platforms
-    except KeyError:
-        print("You did not add any platform before!")
-        user_platforms(current_user, big_dict)
+    
 
 def list_by_name(platforms):
     pl_name = input("Write Platform Name: ")
@@ -553,7 +557,6 @@ def list_by_name(platforms):
             return platform_name, platform_username, platform_mail, platform_password
     if not_exist == True:
         print("The Platform Which is you search not exist!")
-
 
 def add_platform(current_user, big_dict):
     print("\nPlease enter the platform information you want to add!\n")
@@ -587,7 +590,7 @@ def add_platform(current_user, big_dict):
     print("\nPlatform added successfully.\n")
     user_platforms(current_user, big_dict)
 
-def change_platform_info(current_user, big_dict, platforms):
+def change_platform_info(big_dict, platforms):
     result = list_by_name(platforms)
 
     while True:
@@ -629,12 +632,13 @@ def change_platform_info(current_user, big_dict, platforms):
                         pass
             json_write(big_dict)
             break
+
 def delete_platform(current_user, big_dict, platforms):
     print("Enter Platform Name which is you want to delete!\n")
     result = list_by_name(platforms)
-    choice = input("The informations will be delete permanently. Are you sure to delete this platform? \n\nEnter 'C' to cancle, 'Y' to delete: ")
     status = True
     while status:
+        choice = input("The informations will be delete permanently. Are you sure to delete this platform? \n\nEnter 'C' to cancle, 'Y' to delete: ")
         if choice.lower() == "c":
             user_platforms(current_user, big_dict)
             status = False
@@ -649,18 +653,15 @@ def delete_platform(current_user, big_dict, platforms):
         else:
             print("You made the wrong choice!")
 
-def restore_delete(current_user, big_dict, platforms, removed_platform):
+def restore_deletion(big_dict, platforms, removed_platform):
     input("Click Enter to contuniue restore last deletion process.\n    /... ")
     platforms.append(removed_platform)
     json_write(big_dict)
     print("\nRestore process complate succesfully!")
 
-
 def json_write(big_dict):
     json.dumps(big_dict, indent=4)
     with open("passwords.json", "w") as file:
         json.dump(big_dict, file)
-
-
 
 intro()
