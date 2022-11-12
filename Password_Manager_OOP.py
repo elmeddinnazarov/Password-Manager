@@ -134,6 +134,10 @@ class JSONStorage:
         users = self.get_users()
         users.append(user)
         self._save_new_users(users)
+    
+    def update_user(self, users_list):
+        self._save_new_users(users_list)
+
 
 
 #--------------------------------------------------------------------------------
@@ -180,11 +184,18 @@ class Interaction:  # Bu bölümde ancaq inputlar alınır
     def get_answer(self, message, accepted_list, exception):
         print(message)
         while True:
-            user_inp = input("Click: ")
+            user_inp = input(">...: ")
             if user_inp in accepted_list:
                 return user_inp
             else:
                 print(exception)
+
+    def get_input(self, message):
+        print(message)
+        user_inp = input(">...: ")
+        return user_inp
+
+
 
     def signup_input(self, choice):
         if choice == "name":
@@ -269,9 +280,6 @@ class PasswordManager:
         else:
             pass
 
-    def execute(self):
-        self.execute = self.intro
-
     def sign_up(self):
         mail_false, pswd_false, key_false, name_false, surname_false, tel_false = False, False, False, False, False, False
         user = {}
@@ -280,14 +288,12 @@ class PasswordManager:
             if not name_false:
                 name = self.interaction.signup_input(choice="name")
                 if self.validation.validate_name(name):
-                    name = name.capitalize()
-                    user["name"] = self.encyrption.hashing(name)
+                    user["name"] = name.capitalize()
                     name_false = True
             elif not surname_false:
                 surname = self.interaction.signup_input(choice="surname")
                 if self.validation.validate_surname(surname):
-                    surname = surname.capitalize()
-                    user["surname"] = self.encyrption.hashing(surname)
+                    user["surname"] = surname.capitalize()
                     surname_false = True
             elif not mail_false:
                 mail = self.interaction.signup_input(choice="mail")
@@ -370,7 +376,73 @@ class PasswordManager:
                     self.restore_password # restore password'a yönlendir
                 
     def restore_pswd(self):
-        pass
+        mail_false, key_false, name_false, surname_false, tel_false = False, False, False, False, False
+        user = {}
+        status = True
+        while status:
+            if not name_false:
+                name = self.interaction.signup_input(choice="name")
+                if self.validation.validate_name(name):
+                    name = name.capitalize()
+                    name_false = True
+            elif not surname_false:
+                surname = self.interaction.signup_input(choice="surname")
+                if self.validation.validate_surname(surname):
+                    surname = surname.capitalize()
+                    surname_false = True
+            elif not mail_false:
+                mail = self.interaction.signup_input(choice="mail")
+                if self.validation.validate_mail(mail):
+                    mail = mail.lower()
+                    hashed_mail = self.encyrption.hashing(mail)
+                    mail_false = True
+            elif not tel_false:
+                tel = self.interaction.signup_input(choice="tel")
+                if self.validation.validate_phone(tel):
+                    hashed_phone = self.encyrption.hashing(tel)
+                    tel_false = True
+            elif not key_false:
+                key = self.interaction.signup_input(choice="key")
+                if self.validation.validate_key(key):
+                    hashed_key = self.encyrption.hashing(key)
+                    key_false = True
+            status = False
+            users = self.jsonStorage.get_users
+            for user in users:
+                if name == user["name"] and surname == user["surname"] and hashed_mail == user["mail"] and hashed_phone == user["phone_number"] and hashed_key == user["secret_key"]:
+                    print("""
+                    Validation Complated!
+                    Good to see you {} {}!
+                    Enter your new password below!
+
+                    """.format(name,surname))
+                    text1 = "Enter your new password below!"
+                    text2 = "Enter your password again!"
+                    while True:
+                        pswd1 = self.interaction.get_input(text1)
+                        pswd2 = self.interaction.get_input(text2)
+                        if not pswd1 == pswd2:
+                            print("Passwords are not the same! Enter again please.")
+                        else:
+                            if self.validation.validate_password(pswd1):
+                                user["password"] = self.encyrption.hashing(pswd1)
+                                break
+                            else:
+                                print("Password format not accepted! Enter again please.")
+                    self.jsonStorage.update_user(users)
+                    print("Your password succesfully updated.")
+                    self.intro
+
+
+
+
+                    
+                
+
+
+
+
+
 
     def signed_in(self):
         pass
@@ -404,6 +476,7 @@ class PasswordManager:
 
     def restore_last_deletion(self):
         pass
+
 
 password_manager = PasswordManager()
 
