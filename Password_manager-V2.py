@@ -1,5 +1,7 @@
 import hashlib
 import json
+import validate as val
+import encyrption as enc
 
 def intro():
     
@@ -30,72 +32,6 @@ def intro():
         else:
             print("You made the wrong choice. Try again please!")
 
-def validate_mail(mail):
-    if not "@" in mail[-14:-7] or not "." in mail[-6:-1]:
-        print("Mail format not accepted!")
-        return False
-    else:
-        return True
-
-def validate_pswd(pswd):
-    if len(pswd) < 8:
-        print("at least 8 character please!")
-        return False
-    elif pswd.isnumeric():
-        print("The password must include least 2 letter, 1 uppercase and 1 lowercase.")
-    elif pswd.isupper() or pswd.islower():
-        print("The password must include least 1 uppercase and 1 lowercase.")
-        return False
-    else:
-        return True
-
-def validate_num(number, select):
-    if select == "1":
-        lenght = 10
-    elif select == "2":
-        lenght = 9
-    if not len(number) == lenght:
-        print("Please enter your phone number carefully!")
-        return False
-    elif not number.isnumeric():
-        print("Numbers can not contain letters! Please enter your phone number carefully!")
-        return False
-    else:
-        return True
-
-def validate_key(key):
-    if not 3 < len(key) < 10:
-        print("Security word lenght has to be min 3, max 10 characters!")
-        return False
-    else:
-        return True
-
-def validate_ns(name, surname):
-    if not name.isalpha() or not surname.isalpha():
-        print("Please reenter name and surname correctly!")
-        return False
-    else:
-        return True
-
-def wrong_attempt():
-    print(
-        "User not found or mail or password is not correct!\n\t1- try again,\n\t2- Restore Password\n\t3- Sing up,\n\t0- Exit\n\t__:")
-    status = True
-    while status:
-        user_inp = input("Click: ")
-        if user_inp == "1":
-            status = False
-            sign_in()
-        elif user_inp == "2":
-            status = False
-            sign_up()
-        elif user_inp == "3":
-            status = False
-            restore_pswd()
-        elif user_inp == "0":
-            status = False
-        else:
-            print("You made the wrong choice. Try again please!")
 
 def restore_pswd():
     email_correct = False
@@ -106,16 +42,16 @@ def restore_pswd():
     while status:
         if not email_correct:
             mail = input("Enter your mail address: ").lower()
-            if validate_mail(mail):
+            if val.validate_mail(mail):
                 email_correct = True
         elif not key_correct:
             key = input("Enter your security word: ").lower()
-            if validate_key(key):
+            if val.validate_key(key):
                 key_correct = True
         elif not name_correct:
             first_name = input("Enter your first name: ")
             last_name = input("Enter your last name: ")
-            if validate_ns(first_name, last_name):
+            if val.validate_ns(first_name, last_name):
                 first_name = first_name.capitalize()
                 last_name = last_name.capitalize()
                 name_correct = True
@@ -143,7 +79,7 @@ def restore_pswd():
 
             number = input(
                 f"Enter your phone number without leading '0': {code} ")
-            if validate_num(number, select):
+            if val.validate_num(number, select):
                 nmbr = code+number
                 numb_correct = True
         else:
@@ -175,7 +111,7 @@ def restore_pswd():
                             print(
                                 "passwords are not the same! Please enter again!")
                         else:
-                            if validate_pswd(new_key_1):
+                            if val.validate_pswd(new_key_1):
                                 pswd_correct = False
                                 new_pswd = hashlib.sha512(new_key_1.encode()).hexdigest()
 
@@ -194,51 +130,25 @@ def restore_pswd():
 
 
 
-def encyrption(input_value):
-    import random
-    import string
-    import textwrap
-
-    # global result
-    output = textwrap.wrap(input_value, 1)
-    len_output = len(output)
-    len_len_output = len(str(len_output))
-    index = int(119/len_output)
-    aralık = index
-    len_aralık = len(str(aralık))
-    letters = string.ascii_letters + string.digits +string.digits +string.punctuation
-    random_str = ''.join(random.choice(letters) for i in range(120))
-    for newstring in output: 
-        random_str = random_str[:index] + newstring + random_str[index + 1:]
-        index += aralık
-    random_str = str(len_output).rjust(2,"&") + str(random_str)[10] + str(len_len_output) + str(random_str) + str(aralık).rjust(2,"%") + str(random_str)[10] + str(len_aralık)
-    result = random_str
-    return result
-
-def decyrption(result):
-    # global user_pw
-    password = []
-    first_part = result[:4]
-    if not "&" in first_part:
-        pw_lenght = first_part[:2]
-    else:
-        pw_lenght = first_part[1]
-    pw_lenght = int(pw_lenght)
-    second_part = result[-4:]
-    if not "%" in second_part:
-        pw_range = second_part[:2]
-    else:
-        pw_range = second_part[1]
-    pw_range = int(pw_range)
-    str_part = result[4:-4]
-    st_range = pw_range
-    for pw in range(pw_lenght):
-        password.append(str_part[pw_range])
-        pw_range+=st_range
-    user_pw = "".join(password)
-    return user_pw
-
-
+def wrong_attempt():
+    print(
+        "User not found or mail or password is not correct!\n\t1- try again,\n\t2- Restore Password\n\t3- Sing up,\n\t0- Exit\n\t__:")
+    status = True
+    while status:
+        user_inp = input("Click: ")
+        if user_inp == "1":
+            status = False
+            sign_in()
+        elif user_inp == "2":
+            status = False
+            sign_up()
+        elif user_inp == "3":
+            status = False
+            restore_pswd()
+        elif user_inp == "0":
+            status = False
+        else:
+            print("You made the wrong choice. Try again please!")
 
 def sign_up():
     email_correct = False
@@ -246,30 +156,30 @@ def sign_up():
     key_correct = False
     name_correct = False
     numb_correct = False
+    
     status_signup = True
     while status_signup:
         if not email_correct:
             mail = input("Enter your mail address: ").lower()
-            if validate_mail(mail):
+            if val.validate_mail(mail):
                 email_correct = True
         elif not pswd_correct:
             pswd = input("Enter your password: ")
-            if validate_pswd(pswd):
+            if val.validate_pswd(pswd):
                 pswd_correct = True
         elif not key_correct:
             key = input("Enter your security word: ").lower()
-            if validate_key(key):
+            if val.validate_key(key):
                 key_correct = True
         elif not name_correct:
             first_name = input("Enter your first name: ")
             last_name = input("Enter your last name: ")
-            if validate_ns(first_name, last_name):
+            if val.validate_ns(first_name, last_name):
                 first_name = first_name.capitalize()
                 last_name = last_name.capitalize()
                 name_correct = True
         elif not numb_correct:
-            code = 0
-            text_2 = """
+            country_menu = """
             Select your country from the menu below
 
             1- Turkey (+90)
@@ -277,7 +187,7 @@ def sign_up():
             """
             status_phone = True
             while status_phone:
-                print(text_2)
+                print(country_menu)
                 select = input(": ")
                 if select == "1":
                     code = "+90"
@@ -290,15 +200,15 @@ def sign_up():
 
             number = input(
                 f"Enter your phone number without leading '0': {code} ")
-            if validate_num(number, select):
-                nmbr = code+number
+            if val.validate_num(number, select):
+                full_num = code+number
                 numb_correct = True
 
         else:
             pswd_hash = str(hashlib.sha512(pswd.encode()).hexdigest())
             mail_hash = str(hashlib.sha512(mail.encode()).hexdigest())
             key_hash = str(hashlib.sha512(key.encode()).hexdigest())
-            nmbr_hash = str(hashlib.sha512(nmbr.encode()).hexdigest())
+            nmbr_hash = str(hashlib.sha512(full_num.encode()).hexdigest())
 
             try:
                 with open('passwords.json') as r:
@@ -336,8 +246,8 @@ def sign_in():
     while status_signin:
         mail_int = input("Your mail: ")
         pswd_int = input("Your password: ")
-        if validate_mail(mail_int) and validate_pswd(pswd_int):
-
+        if val.validate_mail(mail_int) and val.validate_pswd(pswd_int):
+            mail_int = mail_int.lower()
             login_mail = hashlib.sha512(mail_int.encode()).hexdigest()
             login_pswd = hashlib.sha512(pswd_int.encode()).hexdigest()
 
@@ -399,7 +309,7 @@ def account_pswd_change(current_user, big_dict):
             print(
                 "passwords are not the same! Please enter again!")
         else:
-            if validate_pswd(new_key_1):
+            if val.validate_pswd(new_key_1):
                 pswd_correct = False
                 
     encpswd = new_key_1.encode()
@@ -425,7 +335,7 @@ def account_mail_change(current_user, big_dict):
             print(
                 "Mails are not the same! Please enter again!")
         else:
-            if validate_mail(new_mail_1):
+            if val.validate_mail(new_mail_1):
                 mail_correct = False
                 
     encmail = new_mail_1.encode()
@@ -450,7 +360,7 @@ def account_key_change(current_user, big_dict):
             print(
                 "Secret Key are not the same! Please enter again!")
         else:
-            if validate_key(new_key_1):
+            if val.validate_key(new_key_1):
                 key_correct = False
                 
     enckey = new_key_1.encode()
@@ -544,7 +454,7 @@ def all_platforms(platforms):
         Mail Address: {}
         Username: {}
         Password: {}
-        """.format(platform["pl_site"], decyrption(platform["pl_mail"]), decyrption(platform["pl_username"]), decyrption(platform["pl_pswd"])))
+        """.format(platform["pl_site"], enc.decyrption(platform["pl_mail"]), enc.decyrption(platform["pl_username"]), enc.decyrption(platform["pl_pswd"])))
     input("\n\nClick 'Enter' to Platform Menu: \n\n")
     
 
@@ -554,9 +464,9 @@ def list_by_name(platforms):
     for platform in platforms:
         if platform["pl_site"] == pl_name:
             platform_name = platform["pl_site"]
-            platform_mail = decyrption(platform["pl_mail"])
-            platform_password = decyrption(platform["pl_pswd"])
-            platform_username = decyrption(platform["pl_username"])
+            platform_mail = enc.decyrption(platform["pl_mail"])
+            platform_password = enc.decyrption(platform["pl_pswd"])
+            platform_username = enc.decyrption(platform["pl_username"])
             print("""
             Platform Name: {}
             Mail Address: {}
@@ -575,9 +485,9 @@ def add_platform(current_user, big_dict):
     pl_mail = input("Mail Address: ")
     pl_pswd = input("Password: ")
 
-    pl_username = encyrption(pl_username)
-    pl_mail = encyrption(pl_mail)
-    pl_pswd = encyrption(pl_pswd)
+    pl_username = enc.encyrption(pl_username)
+    pl_mail = enc.encyrption(pl_mail)
+    pl_pswd = enc.encyrption(pl_pswd)
 
     try:
         platforms = current_user["platforms"]
@@ -604,7 +514,7 @@ def change_platform_info(big_dict, platforms):
     result = list_by_name(platforms)
 
     while True:
-        set = input("""
+        ch_pl_info = input("""
         Whitch one you want to change ?
         Enter '1' to 'Username',
         Enter '2' to 'Mail Address',
@@ -614,30 +524,30 @@ def change_platform_info(big_dict, platforms):
 
         /...""")
 
-        if not set.isnumeric() and not len(set) <=3:
+        if not ch_pl_info.isnumeric() and not len(ch_pl_info) <=3:
             print("You made the wrong choice!")
 
         else:
-            set = [*set]
-            if "1" in set:
+            ch_pl_info = {*ch_pl_info}
+            if "1" in ch_pl_info:
                 username = input("New Username: ")
-            if "2" in set:
+            if "2" in ch_pl_info:
                 mail = input("New Mail Address: ")
-            if "3" in set:
+            if "3" in ch_pl_info:
                 password = input("New Password: ")
 
             for platform in platforms:
                 if result[0] == platform["pl_site"]:
                     try:
-                        platform["pl_username"] = encyrption(username)
+                        platform["pl_username"] = enc.encyrption(username)
                     except NameError:
                         pass
                     try:
-                        platform["pl_mail"] = encyrption(mail)
+                        platform["pl_mail"] = enc.encyrption(mail)
                     except NameError:
                         pass
                     try:
-                        platform["pl_pswd"] = encyrption(password)
+                        platform["pl_pswd"] = enc.encyrption(password)
                     except NameError:
                         pass
             json_write(big_dict)
@@ -669,9 +579,9 @@ def restore_deletion(big_dict, platforms, removed_platform):
     json_write(big_dict)
     print("\nRestore process complate succesfully!")
 
-def json_write(big_dict):
-    json.dumps(big_dict, indent=4)
+def json_write(value):
+    json.dumps(value, indent=4)
     with open("passwords.json", "w") as file:
-        json.dump(big_dict, file)
+        json.dump(value, file)
 
 intro()
