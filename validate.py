@@ -4,6 +4,7 @@ import re
 # PATTERNS
 
 email_pattern = re.compile("^[a-z0-9]+([._%+-][a-z0-9]+)?@[a-z0-9.]+\.[a-z]{2,}$")
+number_pattern = re.compile("^\d{9,10}$")
 
 
 
@@ -27,12 +28,8 @@ def validate_pswd(pswd):
     else:
         return True
     
-def validate_num(number, select):
-    if select == "1":
-        lenght = 10
-    elif select == "2":
-        lenght = 9
-    if not number.isnumeric() or not len(number) == lenght:
+def validate_num(number):
+    if not number_pattern.match(number):
         print(
             "Please enter your phone number carefully!\n"
             "Numbers can not contain letters! Please enter your phone number carefully!"
@@ -40,7 +37,6 @@ def validate_num(number, select):
         return False
     else:
         return True
-
 
 def validate_key(key):
     if not 3 < len(key) < 15 or ' ' in key:

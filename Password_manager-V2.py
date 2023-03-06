@@ -137,7 +137,6 @@ def wrong_attempt():
     while status:
         user_inp = input("Click: ")
         if user_inp == "1":
-            status = False
             sign_in()
         elif user_inp == "2":
             status = False
@@ -583,5 +582,38 @@ def json_write(value):
     json.dumps(value, indent=4)
     with open("passwords.json", "w") as file:
         json.dump(value, file)
+
+def email_verificaion(email):
+    import boto3
+
+    AWS_ACCESS_KEY_ID = 'AKIAWGJBI35RRUTZTTGT'
+    AWS_SECRET_ACCESS_KEY = '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'
+    AWS_REGION = 'eu-north-1'
+
+    client = boto3.client('ses',
+                        aws_access_key_id=AWS_ACCESS_KEY_ID,
+                        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+                        region_name=AWS_REGION)
+
+
+    response = client.send_email(
+        Source='info.passwordmanager.com',
+        Destination={
+            'ToAddresses': [
+                email
+            ]
+        },
+        Message={
+            'Subject': {
+                'Data': 'Password Manager - Verify Your Account'
+            },
+            'Body': {
+                'Text': {
+                    'Data': "Your 6 digit verification code\n : 345673"
+                }
+            }
+        }
+    )
+
 
 intro()
