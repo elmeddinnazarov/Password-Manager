@@ -1,7 +1,8 @@
 import hashlib
 import json
 import validate as val
-import encyrption as enc
+import enc
+import boto3
 
 def intro():
     
@@ -583,8 +584,8 @@ def json_write(value):
     with open("passwords.json", "w") as file:
         json.dump(value, file)
 
+
 def email_verificaion(email):
-    import boto3
 
     AWS_ACCESS_KEY_ID = 'AKIAWGJBI35RRUTZTTGT'
     AWS_SECRET_ACCESS_KEY = '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'
@@ -617,3 +618,4 @@ def email_verificaion(email):
 
 
 intro()
+
