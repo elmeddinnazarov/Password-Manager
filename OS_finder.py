@@ -4,21 +4,25 @@ import psycopg2
 
 operating_system = platform.system()
 
+db_name = input("Enter the Database name: ")
+db_username = input("Enter the username: ")
+db_password = input("Enter the password: ")
+
 if operating_system == "Linux":
     commands = [
         "sudo apt-get update",
-        "sudo apt-get install postgresql postgresql-contrib -y",
-        "sudo -u postgres psql -c \"CREATE DATABASE mydatabase\"",
-        "sudo -u postgres psql -c \"CREATE USER myuser WITH ENCRYPTED PASSWORD 'mypassword'\"",
-        "sudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser\"",
+        f"sudo apt-get install postgresql postgresql-contrib -y",
+        f"sudo -u postgres psql -c \"CREATE DATABASE {db_name}\"",
+        f"sudo -u postgres psql -c \"CREATE USER {db_username} WITH ENCRYPTED PASSWORD {db_password}\"",
+        f"sudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE {db_name} TO{db_username}\"",
     ]
     
 elif operating_system == "Windows":
     commands = [
         "choco install postgresql",
-        "psql -U postgres -c \"CREATE DATABASE mydatabase\"",
-        "psql -U postgres -c \"CREATE USER myuser WITH ENCRYPTED PASSWORD 'mypassword'\"",
-        "psql -U postgres -c \"GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser\"",
+        f"psql -U postgres -c \"CREATE DATABASE {db_name}\"",
+        f"psql -U postgres -c \"CREATE USER {db_username} WITH ENCRYPTED PASSWORD {db_password}\"",
+        f"psql -U postgres -c \"GRANT ALL PRIVILEGES ON DATABASE {db_name} TO {db_username}\"",
     ]
     
 elif operating_system == "Darwin":
@@ -26,8 +30,8 @@ elif operating_system == "Darwin":
         "brew update",
         "brew install postgresql",
         "pg_ctl -D /usr/local/var/postgres start",
-        "createuser -s myuser",
-        "createdb mydatabase",
+        f"createuser -s {db_username}",
+        f"createdb {db_name}",
     ]
     
 else:
@@ -38,20 +42,21 @@ for command in commands:
 
 conn = psycopg2.connect(
     host="localhost",
-    database="mydatabase",
-    user="myuser",
-    password="mypassword"
+    database=f"{db_name}",
+    user=f"{db_username}",
+    password=f"{db_password}"
 )
 
+
 with conn.cursor() as cursor:
-    cursor.execute("CREATE TABLE IF NOT EXISTS mytable (id serial PRIMARY KEY, column_name text)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, first_name VARCHAR(500) NOT NULL, last_name VARCHAR(500) NOT NULL, email VARCHAR(500) NOT NULL, password VARCHAR(500) NOT NULL, key VARCHAR(500) NOT NULL, phone VARCHAR(500) NOT NULL)")
     conn.commit()
     
-    column_name = "new_column"
-    column_definition = "'text'"
+    # column_name = "new_column"
+    # column_definition = "'text'"
     
-    query = f"ALTER TABLE mytable ADD COLUMN IF NOT EXISTS {column_name} {column_definition}"
-    cursor.execute(query)
-    conn.commit()
+    # query = f"ALTER TABLE mytable ADD COLUMN IF NOT EXISTS {column_name} {column_definition}"
+    # cursor.execute(query)
+    # conn.commit()
     
 print("Database and table created successfully!")

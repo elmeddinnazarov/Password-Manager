@@ -2,7 +2,17 @@ import hashlib
 import json
 import validate as val
 import enc
-import boto3
+# import boto3
+import psycopg2
+import OS_finder as info
+
+conn = psycopg2.connect(
+    port = "5432",
+    host="localhost",
+    database=f"{info.db_name}",
+    user=f"{info.db_username}",
+    password=f"{info.db_password}"
+)
 
 def intro():
     
@@ -129,8 +139,6 @@ def restore_pswd():
                 wrong_attempt()
                 status = False
 
-
-
 def wrong_attempt():
     print(
         "User not found or mail or password is not correct!\n\t1- try again,\n\t2- Restore Password\n\t3- Sing up,\n\t0- Exit\n\t__:")
@@ -200,7 +208,7 @@ def sign_up():
 
             number = input(
                 f"Enter your phone number without leading '0': {code} ")
-            if val.validate_num(number, select):
+            if val.validate_num(number):
                 full_num = code+number
                 numb_correct = True
 
@@ -210,28 +218,36 @@ def sign_up():
             key_hash = str(hashlib.sha512(key.encode()).hexdigest())
             nmbr_hash = str(hashlib.sha512(full_num.encode()).hexdigest())
 
-            try:
-                with open('passwords.json') as r:
-                    big_dict = json.load(r)
-                    users = big_dict["users"]
-            except FileNotFoundError:
-                big_dict = {}
-                users = []
 
-            user = {
-                "first name": first_name,
-                "last name": last_name,
-                "number": nmbr_hash,
-                "mail": mail_hash,
-                "password": pswd_hash,
-                "key": key_hash
-            }
-            users.append(user)
-            big_dict["users"] = users
-            json.dumps(big_dict, indent=4)
+            cursor = conn.cursor()
 
-            with open("passwords.json", "w") as r:
-                json.dump(big_dict, r)
+            users_info_insert = "INSERT INTO users(first_name, last_name, email, password, key, phone) VALUES(%s, %s, %s, %s, %s, %s)"
+            cursor.execute(users_info_insert, (first_name, last_name, mail_hash, pswd_hash, key_hash, nmbr_hash))
+            conn.commit()
+                
+
+            # try:
+            #     with open('passwords.json') as r:
+            #         big_dict = json.load(r)
+            #         users = big_dict["users"]
+            # except FileNotFoundError:
+            #     big_dict = {}
+            #     users = []
+
+            # user = {
+            #     "first name": first_name,
+            #     "last name": last_name,
+            #     "number": nmbr_hash,
+            #     "mail": mail_hash,
+            #     "password": pswd_hash,
+            #     "key": key_hash
+            # }
+            # users.append(user)
+            # big_dict["users"] = users
+            # json.dumps(big_dict, indent=4)
+
+            # with open("passwords.json", "w") as r:
+            #     json.dump(big_dict, r)
 
             print("Welcome", first_name, last_name,
                   "\nSing Up succesfully ended")
