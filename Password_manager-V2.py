@@ -3,17 +3,20 @@ import json
 import validate as val
 import enc
 # import boto3
-import psycopg2
 import OS_finder as info
 
-conn = psycopg2.connect(
-    port = "5432",
-    host="localhost",
-    database=f"{info.db_name}",
-    user=f"{info.db_username}",
-    password=f"{info.db_password}"
-)
 
+
+
+def notify():
+    notify_text = '''
+    Hello, welcome to Password manager. First of all a database was created to save your data.
+    The following information is used by default when creating the database.
+    For your security, please do not forget to update your database information.
+    '''
+    print(notify_text)
+    
+    
 def intro():
     
     text = """
@@ -22,6 +25,7 @@ def intro():
         '1' Sign in
         '2' Sign up
         '3' Restore Password
+        '4' Update DataBase Information
         '0' Exit
 
     """
@@ -38,11 +42,18 @@ def intro():
         elif user_inp == "3":
             status = False
             restore_pswd()
+        elif user_inp == "4":
+            status = False
+            update_db_info()
         elif user_inp == "0":
             status = False
         else:
             print("You made the wrong choice. Try again please!")
 
+
+def update_db_info():
+    
+    pass
 
 def restore_pswd():
     email_correct = False
@@ -633,5 +644,4 @@ def email_verificaion(email):
     )
 
 
-intro()
 
