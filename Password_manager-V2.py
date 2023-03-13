@@ -2,8 +2,7 @@ import hashlib
 import json
 import validate as val
 import enc
-# import boto3
-import OS_finder as info
+import boto3
 
 
 
@@ -21,7 +20,6 @@ def intro():
     
     text = """
         Welcome to Password Manager!
-
         '1' Sign in
         '2' Sign up
         '3' Restore Password
@@ -157,6 +155,7 @@ def wrong_attempt():
     while status:
         user_inp = input("Click: ")
         if user_inp == "1":
+            status = False
             sign_in()
         elif user_inp == "2":
             status = False
@@ -230,35 +229,28 @@ def sign_up():
             nmbr_hash = str(hashlib.sha512(full_num.encode()).hexdigest())
 
 
-            cursor = conn.cursor()
+            try:
+                with open('passwords.json') as r:
+                    big_dict = json.load(r)
+                    users = big_dict["users"]
+            except FileNotFoundError:
+                big_dict = {}
+                users = []
 
-            users_info_insert = "INSERT INTO users(first_name, last_name, email, password, key, phone) VALUES(%s, %s, %s, %s, %s, %s)"
-            cursor.execute(users_info_insert, (first_name, last_name, mail_hash, pswd_hash, key_hash, nmbr_hash))
-            conn.commit()
-                
+            user = {
+                "first name": first_name,
+                "last name": last_name,
+                "number": nmbr_hash,
+                "mail": mail_hash,
+                "password": pswd_hash,
+                "key": key_hash
+            }
+            users.append(user)
+            big_dict["users"] = users
+            json.dumps(big_dict, indent=4)
 
-            # try:
-            #     with open('passwords.json') as r:
-            #         big_dict = json.load(r)
-            #         users = big_dict["users"]
-            # except FileNotFoundError:
-            #     big_dict = {}
-            #     users = []
-
-            # user = {
-            #     "first name": first_name,
-            #     "last name": last_name,
-            #     "number": nmbr_hash,
-            #     "mail": mail_hash,
-            #     "password": pswd_hash,
-            #     "key": key_hash
-            # }
-            # users.append(user)
-            # big_dict["users"] = users
-            # json.dumps(big_dict, indent=4)
-
-            # with open("passwords.json", "w") as r:
-            #     json.dump(big_dict, r)
+            with open("passwords.json", "w") as r:
+                json.dump(big_dict, r)
 
             print("Welcome", first_name, last_name,
                   "\nSing Up succesfully ended")

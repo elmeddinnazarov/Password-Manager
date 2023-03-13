@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&family=Roboto+Mono:wght@200;300;400;500;600&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.auth-layer {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(/PM/Front-End/pages/photo/login_background.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.auth-layer .overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.307);
+}
+.auth-layer .overlay .sign-in, .auth-layer .overlay .sign-up {
+  width: 35%;
+  background-color: rgba(255, 255, 255, 0.058);
+  border-radius: 20px;
+  position: relative;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  animation: lighter 2000ms infinite;
+  padding: 40px 30px;
+}
+.auth-layer .overlay .sign-in .lock, .auth-layer .overlay .sign-up .lock {
+  width: 40%;
+  height: 50%;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.058);
+  animation: lighter 2000ms infinite;
+}
+.auth-layer .overlay .sign-in .lock i, .auth-layer .overlay .sign-up .lock i {
+  font-size: 80px;
+  color: rgb(255, 255, 255);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.auth-layer .overlay .sign-in .top-text, .auth-layer .overlay .sign-up .top-text {
+  width: 80%;
+  margin: auto;
+}
+.auth-layer .overlay .sign-in .top-text h3, .auth-layer .overlay .sign-up .top-text h3 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  color: rgba(255, 255, 255, 0.5882352941);
+}
+.auth-layer .overlay .sign-in .input-area, .auth-layer .overlay .sign-up .input-area {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+.auth-layer .overlay .sign-in .input-area #login-input, .auth-layer .overlay .sign-in .input-area #register-input, .auth-layer .overlay .sign-in .input-area #country-code, .auth-layer .overlay .sign-up .input-area #login-input, .auth-layer .overlay .sign-up .input-area #register-input, .auth-layer .overlay .sign-up .input-area #country-code {
+  margin-top: 35px;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2470588235);
+  color: rgba(255, 255, 255, 0.6862745098);
+  border-radius: 10px;
+}
+.auth-layer .overlay .sign-in .input-area #login-input, .auth-layer .overlay .sign-up .input-area #login-input {
+  width: 70%;
+}
+.auth-layer .overlay .sign-in .input-area #country-code, .auth-layer .overlay .sign-up .input-area #country-code {
+  width: 18%;
+  margin-right: 20px;
+}
+.auth-layer .overlay .sign-in .input-area .first-name, .auth-layer .overlay .sign-in .input-area .last-name, .auth-layer .overlay .sign-in .input-area .email, .auth-layer .overlay .sign-in .input-area .secret-key, .auth-layer .overlay .sign-in .input-area .password, .auth-layer .overlay .sign-in .input-area .re-password, .auth-layer .overlay .sign-up .input-area .first-name, .auth-layer .overlay .sign-up .input-area .last-name, .auth-layer .overlay .sign-up .input-area .email, .auth-layer .overlay .sign-up .input-area .secret-key, .auth-layer .overlay .sign-up .input-area .password, .auth-layer .overlay .sign-up .input-area .re-password {
+  padding: 10px 15px;
+  width: 45%;
+  margin-right: 10px;
+}
+.auth-layer .overlay .sign-in .input-area .phone, .auth-layer .overlay .sign-up .input-area .phone {
+  width: 70%;
+  padding: 10px 15px;
+}
+.auth-layer .overlay .sign-in .input-area .password, .auth-layer .overlay .sign-in .input-area .re-password, .auth-layer .overlay .sign-up .input-area .password, .auth-layer .overlay .sign-up .input-area .re-password {
+  padding: 10px 50px 10px 15px;
+}
+.auth-layer .overlay .sign-in .input-area i, .auth-layer .overlay .sign-up .input-area i {
+  position: absolute;
+  top: 81%;
+  left: 78%;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.4588235294);
+  cursor: pointer;
+}
+.auth-layer .overlay .sign-in .input-area .forgot-password, .auth-layer .overlay .sign-up .input-area .forgot-password {
+  position: absolute;
+  top: 100%;
+  left: 65%;
+}
+.auth-layer .overlay .sign-in .input-area .forgot-password a, .auth-layer .overlay .sign-up .input-area .forgot-password a {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.337254902);
+}
+.auth-layer .overlay .sign-in .form-submit, .auth-layer .overlay .sign-up .form-submit {
+  display: flex;
+  justify-content: center;
+  margin-top: 65px;
+}
+.auth-layer .overlay .sign-in .form-submit .submit-btn, .auth-layer .overlay .sign-up .form-submit .submit-btn {
+  padding: 10px 40px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  transition: 200ms ease-in-out;
+}
+.auth-layer .overlay .sign-in .form-submit .submit-btn:hover, .auth-layer .overlay .sign-up .form-submit .submit-btn:hover {
+  background-color: transparent;
+  color: #fff;
+}
+.auth-layer .overlay .sign-in .have-account, .auth-layer .overlay .sign-up .have-account {
+  text-align: center;
+  margin-top: 30px;
+}
+.auth-layer .overlay .sign-in .have-account a, .auth-layer .overlay .sign-up .have-account a {
+  color: rgba(255, 255, 255, 0.4823529412);
+  text-decoration: none;
+}
+@keyframes lighter {
+  0% {
+    border: 1px solid rgba(255, 255, 255, 0.2901960784);
+  }
+  50% {
+    border: 1px solid #ffffff;
+  }
+  100% {
+    border: 1px solid rgba(255, 255, 255, 0.2901960784);
+  }
+}/*# sourceMappingURL=style.css.map */
