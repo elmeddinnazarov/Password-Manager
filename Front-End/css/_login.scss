@@ -1,10 +1,25 @@
 
+.border-light{
+    animation: border-light 2000ms infinite;
+}
 
+.login-success{
+    animation: border-green 3000ms infinite;
+
+}
+
+.login-error {
+    background-color: rgba(239, 69, 69, 0.058);
+    border: 2px solid rgba(239, 69, 69, 0.619);
+    animation: shake 700ms cubic-bezier(.36,.07,.19,.97) both;
+    backface-visibility: hidden;
+    transition: 300ms;
+}
 
 .auth-layer{
     width: 100vw;
     height: 100vh;
-    background-image: url(/PM/Front-End/pages/photo/login_background.jpg);
+    background-image: url('../photo/login_background.jpg');
     background-position: center ;
     background-size: cover;
     background-repeat: no-repeat;
@@ -15,7 +30,7 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.307);
 
-        
+
 
         .sign-in, .sign-up{
             width: 35%;
@@ -26,7 +41,6 @@
             left: 10%;
             transform: translateY(-50%);
             backdrop-filter: blur(5px);
-            animation: lighter 2000ms infinite;
             padding: 40px 30px;
 
             .lock{
@@ -39,7 +53,7 @@
                 transform: translate(-50%,-50%);
                 backdrop-filter: blur(5px);
                 background-color: rgba(255, 255, 255, 0.058);
-                animation: lighter 2000ms infinite;
+                animation: border-light 2000ms infinite;
                 
 
                 i{
@@ -79,6 +93,10 @@
                     border: 1px solid #ffffff3f;
                     color: #ffffffaf;
                     border-radius: 10px;
+                    outline: none;
+                    &:focus{
+                    outline: 1px solid #ffffff;
+                    }
                 }
 
                 #login-input{
@@ -114,11 +132,16 @@
                     font-size: 18px;
                     color: #ffffff75;
                     cursor: pointer;
+                    opacity: 0.5;
+                    &:hover{
+                        opacity: 1;
+                    }
                 }
+                
 
                 .forgot-password{
                     position: absolute;
-                    top: 100%;
+                    top: 110%;
                     left: 65%;
                     
                     a{
@@ -160,17 +183,53 @@
             }
         }
 
-        @keyframes lighter {
+
+
+
+
+        @keyframes border-light {
             0%{
                 border: 1px solid #ffffff4a;
             };
             50%{
                 border: 1px solid #ffffff;
-            }
+            };
             100%{
                 border: 1px solid #ffffff4a;
             };
             
         }
+
+        @keyframes border-green {
+            0%{
+                border: 1px solid #ffffff;
+            };
+            50%{
+                border: 1px solid #28ca00;
+            };
+            100%{
+                border: 1px solid #ffffff;
+            };
+            
+        }
+
+        @keyframes shake {
+            10%, 90% {
+                transform: translate3d(-2px, -50%, 0);
+            }
+            
+            20%, 80% {
+                transform: translate3d(3px, -50%, 0);
+            }
+          
+            30%, 50%, 70% {
+                transform: translate3d(-5px, -50%, 0);
+            }
+          
+            40%, 60% {
+                transform: translate3d(5px, -50%, 0);
+            }
+          }
+
     }
 }

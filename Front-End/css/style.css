@@ -5,10 +5,27 @@
   box-sizing: border-box;
 }
 
+.border-light {
+  animation: border-light 2000ms infinite;
+}
+
+.login-success {
+  animation: border-green 3000ms infinite;
+}
+
+.login-error {
+  background-color: rgba(239, 69, 69, 0.058);
+  border: 2px solid rgba(239, 69, 69, 0.619);
+  animation: shake 700ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  transition: 300ms;
+}
+
 .auth-layer {
   width: 100vw;
   height: 100vh;
-  background-image: url(/PM/Front-End/pages/photo/login_background.jpg);
+  background-image: url("../photo/login_background.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -29,7 +46,6 @@
   transform: translateY(-50%);
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
-  animation: lighter 2000ms infinite;
   padding: 40px 30px;
 }
 .auth-layer .overlay .sign-in .lock, .auth-layer .overlay .sign-up .lock {
@@ -43,7 +59,7 @@
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
   background-color: rgba(255, 255, 255, 0.058);
-  animation: lighter 2000ms infinite;
+  animation: border-light 2000ms infinite;
 }
 .auth-layer .overlay .sign-in .lock i, .auth-layer .overlay .sign-up .lock i {
   font-size: 80px;
@@ -77,6 +93,10 @@
   border: 1px solid rgba(255, 255, 255, 0.2470588235);
   color: rgba(255, 255, 255, 0.6862745098);
   border-radius: 10px;
+  outline: none;
+}
+.auth-layer .overlay .sign-in .input-area #login-input:focus, .auth-layer .overlay .sign-in .input-area #register-input:focus, .auth-layer .overlay .sign-in .input-area #country-code:focus, .auth-layer .overlay .sign-up .input-area #login-input:focus, .auth-layer .overlay .sign-up .input-area #register-input:focus, .auth-layer .overlay .sign-up .input-area #country-code:focus {
+  outline: 1px solid #ffffff;
 }
 .auth-layer .overlay .sign-in .input-area #login-input, .auth-layer .overlay .sign-up .input-area #login-input {
   width: 70%;
@@ -104,10 +124,14 @@
   font-size: 18px;
   color: rgba(255, 255, 255, 0.4588235294);
   cursor: pointer;
+  opacity: 0.5;
+}
+.auth-layer .overlay .sign-in .input-area i:hover, .auth-layer .overlay .sign-up .input-area i:hover {
+  opacity: 1;
 }
 .auth-layer .overlay .sign-in .input-area .forgot-password, .auth-layer .overlay .sign-up .input-area .forgot-password {
   position: absolute;
-  top: 100%;
+  top: 110%;
   left: 65%;
 }
 .auth-layer .overlay .sign-in .input-area .forgot-password a, .auth-layer .overlay .sign-up .input-area .forgot-password a {
@@ -139,7 +163,7 @@
   color: rgba(255, 255, 255, 0.4823529412);
   text-decoration: none;
 }
-@keyframes lighter {
+@keyframes border-light {
   0% {
     border: 1px solid rgba(255, 255, 255, 0.2901960784);
   }
@@ -148,5 +172,30 @@
   }
   100% {
     border: 1px solid rgba(255, 255, 255, 0.2901960784);
+  }
+}
+@keyframes border-green {
+  0% {
+    border: 1px solid #ffffff;
+  }
+  50% {
+    border: 1px solid #28ca00;
+  }
+  100% {
+    border: 1px solid #ffffff;
+  }
+}
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-2px, -50%, 0);
+  }
+  20%, 80% {
+    transform: translate3d(3px, -50%, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-5px, -50%, 0);
+  }
+  40%, 60% {
+    transform: translate3d(5px, -50%, 0);
   }
 }/*# sourceMappingURL=style.css.map */
