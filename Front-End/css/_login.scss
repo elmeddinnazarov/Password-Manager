@@ -76,7 +76,7 @@
                     position: relative;
     
     
-                    .login-input, #register-input, #country-code{
+                    .login-input, .register-input, #country-code{
                         margin-top: 35px;
                         background-color: transparent;
                         border: 1px solid #ffffff3f;
@@ -99,20 +99,22 @@
                         padding:0 10px;
                     }
     
-                    .first-name, .last-name, #login-email, .secret-key, #login-password, .re-password{
+                    #first-name, #last-name, #login-email, #register-email, #secret-key, #login-password, #re-password{
                         padding: 10px 15px;
                         width: 45%;
                         margin-right: 10px;
                     }
     
-                    .phone{
+                    #phone{
                         width: 70%;
                         padding: 10px 15px;
                     }
     
-                    .password, .re-password{
+                    #password, #re-password{
                         padding: 10px 50px 10px 15px;
-    
+                        &#password{
+                            margin-right: 10px;
+                        }
                     }
     
                     i{

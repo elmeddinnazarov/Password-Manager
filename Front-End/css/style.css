@@ -79,7 +79,7 @@
   flex-wrap: wrap;
   position: relative;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .login-input, .auth-layer .overlay .main-box .sign-in .input-area #register-input, .auth-layer .overlay .main-box .sign-in .input-area #country-code, .auth-layer .overlay .main-box .sign-up .input-area .login-input, .auth-layer .overlay .main-box .sign-up .input-area #register-input, .auth-layer .overlay .main-box .sign-up .input-area #country-code {
+.auth-layer .overlay .main-box .sign-in .input-area .login-input, .auth-layer .overlay .main-box .sign-in .input-area .register-input, .auth-layer .overlay .main-box .sign-in .input-area #country-code, .auth-layer .overlay .main-box .sign-up .input-area .login-input, .auth-layer .overlay .main-box .sign-up .input-area .register-input, .auth-layer .overlay .main-box .sign-up .input-area #country-code {
   margin-top: 35px;
   background-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2470588235);
@@ -87,10 +87,10 @@
   border-radius: 10px;
   outline: none;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .login-input:focus, .auth-layer .overlay .main-box .sign-in .input-area #register-input:focus, .auth-layer .overlay .main-box .sign-in .input-area #country-code:focus, .auth-layer .overlay .main-box .sign-up .input-area .login-input:focus, .auth-layer .overlay .main-box .sign-up .input-area #register-input:focus, .auth-layer .overlay .main-box .sign-up .input-area #country-code:focus {
+.auth-layer .overlay .main-box .sign-in .input-area .login-input:focus, .auth-layer .overlay .main-box .sign-in .input-area .register-input:focus, .auth-layer .overlay .main-box .sign-in .input-area #country-code:focus, .auth-layer .overlay .main-box .sign-up .input-area .login-input:focus, .auth-layer .overlay .main-box .sign-up .input-area .register-input:focus, .auth-layer .overlay .main-box .sign-up .input-area #country-code:focus {
   outline: 1px solid #ffffff;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .login-input.login-input, .auth-layer .overlay .main-box .sign-in .input-area #register-input.login-input, .auth-layer .overlay .main-box .sign-in .input-area #country-code.login-input, .auth-layer .overlay .main-box .sign-up .input-area .login-input.login-input, .auth-layer .overlay .main-box .sign-up .input-area #register-input.login-input, .auth-layer .overlay .main-box .sign-up .input-area #country-code.login-input {
+.auth-layer .overlay .main-box .sign-in .input-area .login-input.login-input, .auth-layer .overlay .main-box .sign-in .input-area .register-input.login-input, .auth-layer .overlay .main-box .sign-in .input-area #country-code.login-input, .auth-layer .overlay .main-box .sign-up .input-area .login-input.login-input, .auth-layer .overlay .main-box .sign-up .input-area .register-input.login-input, .auth-layer .overlay .main-box .sign-up .input-area #country-code.login-input {
   width: 70% !important;
 }
 .auth-layer .overlay .main-box .sign-in .input-area #country-code, .auth-layer .overlay .main-box .sign-up .input-area #country-code {
@@ -98,17 +98,20 @@
   margin-right: 20px;
   padding: 0 10px;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .first-name, .auth-layer .overlay .main-box .sign-in .input-area .last-name, .auth-layer .overlay .main-box .sign-in .input-area #login-email, .auth-layer .overlay .main-box .sign-in .input-area .secret-key, .auth-layer .overlay .main-box .sign-in .input-area #login-password, .auth-layer .overlay .main-box .sign-in .input-area .re-password, .auth-layer .overlay .main-box .sign-up .input-area .first-name, .auth-layer .overlay .main-box .sign-up .input-area .last-name, .auth-layer .overlay .main-box .sign-up .input-area #login-email, .auth-layer .overlay .main-box .sign-up .input-area .secret-key, .auth-layer .overlay .main-box .sign-up .input-area #login-password, .auth-layer .overlay .main-box .sign-up .input-area .re-password {
+.auth-layer .overlay .main-box .sign-in .input-area #first-name, .auth-layer .overlay .main-box .sign-in .input-area #last-name, .auth-layer .overlay .main-box .sign-in .input-area #login-email, .auth-layer .overlay .main-box .sign-in .input-area #register-email, .auth-layer .overlay .main-box .sign-in .input-area #secret-key, .auth-layer .overlay .main-box .sign-in .input-area #login-password, .auth-layer .overlay .main-box .sign-in .input-area #re-password, .auth-layer .overlay .main-box .sign-up .input-area #first-name, .auth-layer .overlay .main-box .sign-up .input-area #last-name, .auth-layer .overlay .main-box .sign-up .input-area #login-email, .auth-layer .overlay .main-box .sign-up .input-area #register-email, .auth-layer .overlay .main-box .sign-up .input-area #secret-key, .auth-layer .overlay .main-box .sign-up .input-area #login-password, .auth-layer .overlay .main-box .sign-up .input-area #re-password {
   padding: 10px 15px;
   width: 45%;
   margin-right: 10px;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .phone, .auth-layer .overlay .main-box .sign-up .input-area .phone {
+.auth-layer .overlay .main-box .sign-in .input-area #phone, .auth-layer .overlay .main-box .sign-up .input-area #phone {
   width: 70%;
   padding: 10px 15px;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .password, .auth-layer .overlay .main-box .sign-in .input-area .re-password, .auth-layer .overlay .main-box .sign-up .input-area .password, .auth-layer .overlay .main-box .sign-up .input-area .re-password {
+.auth-layer .overlay .main-box .sign-in .input-area #password, .auth-layer .overlay .main-box .sign-in .input-area #re-password, .auth-layer .overlay .main-box .sign-up .input-area #password, .auth-layer .overlay .main-box .sign-up .input-area #re-password {
   padding: 10px 50px 10px 15px;
+}
+.auth-layer .overlay .main-box .sign-in .input-area #password#password, .auth-layer .overlay .main-box .sign-in .input-area #re-password#password, .auth-layer .overlay .main-box .sign-up .input-area #password#password, .auth-layer .overlay .main-box .sign-up .input-area #re-password#password {
+  margin-right: 10px;
 }
 .auth-layer .overlay .main-box .sign-in .input-area i, .auth-layer .overlay .main-box .sign-up .input-area i {
   position: absolute;
