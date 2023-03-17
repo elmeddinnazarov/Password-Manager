@@ -1,4 +1,6 @@
 import sqlite3 as sql
+from typing import TypedDict
+
 
 
 # ************************************************************************
@@ -29,14 +31,7 @@ def _close_db(conn):
 
 # ************************************************************************
 
-
-# ************************************************************************
-#   Functions associated to users
-# ************************************************************************
-
-from typing import TypedDict
-
-DataDictType = TypedDict('DataDictType', {
+add_user_DataType = TypedDict('add_user_DataType', {
     "first_name": str,
     "last_name": str,
     "phone_number": str,
@@ -45,9 +40,31 @@ DataDictType = TypedDict('DataDictType', {
     "secret_key": str,
 })
 
+add_pl_DataType = TypedDict('add_pl_DataType', {
+    "pl_name": str,
+    "pl_username": str,
+    "pl_email": str,
+    "pl_password": str,
+    "pl_type": str,
+    "user_id": str,
+})
+
+update_user_DataType = TypedDict('update_user_DataType', {
+    "user_id": str,
+    "column_name": str,
+    "new_data": str
+})
+
+
+# ************************************************************************
+#   Functions associated to users
+# ************************************************************************
+
+
+
 
 # islem basarili bitibse True return edir. data deyisdirilmiyibse False return edir
-def add_user(data_dict:DataDictType):
+def add_user(data_dict:add_user_DataType):
     datas = tuple(data_dict.values())
     keys = tuple(data_dict.keys())
     conn = sql.connect("default.db")
@@ -134,17 +151,9 @@ def create_platform():
 
 
 
-# data_pl = pl_name, pl_username, pl_email, pl_password, pl_type, user_id
-# example: data_pl = {
-#     "pl_name": "instagram",
-#     "pl_username": "elmeddin.nazarov",
-#     "pl_email": "elmeddin222@hotmail.com",
-#     "pl_password": "asd12345",
-#     "pl_type": "social",
-#     "user_id": user_id
-# }
+
 # islem basarili bitibse True return edir. data deyisdirilmiyibse False return edir
-def add_platform(data_pl):
+def add_platform(data_pl:add_pl_DataType):
     datas = tuple(data_pl.values())
     keys = tuple(data_pl.keys())
     conn = sql.connect("default.db")

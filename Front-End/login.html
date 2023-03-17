@@ -18,63 +18,61 @@
 <body>
     <section class="auth-layer">
         <div class="overlay">
-            <div class="sign-in border-light ">
-                <div class="lock d-none">
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-
-                <div class="top-text">
-                    <h3>Sign in</h3>
-                </div>
-                <form action="">
-                    <div class="input-area">
-                        <input id="login-input" class="email" type="text">
-                        <input id="login-input" class="password" type="text">
-                        <i class="fa-solid fa-eye"></i>
-                        <i class="fa-solid fa-eye-slash d-none"></i>
-                        <div class="forgot-password">
-                            <a href="#">Forgot Password?</a>
+            <div class="main-box">
+                <div class="sign-in border-lg">
+                    <div class="top-text">
+                        <h3>Sign in</h3>
+                    </div>
+                    <form action="">
+                        <div class="input-area">
+                            <input id="login-email" class="login-input" type="mail">
+                            <input id="login-password" class="login-input" type="password">
+                            <i class="eye-open fa-solid fa-eye"></i>
+                            <i class="eye-close fa-solid fa-eye-slash d-none"></i>
+                            <div class="forgot-password">
+                                <a href="#">Forgot Password?</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-submit">
-                        <button class="submit-btn" type="submit">Sign In</button>
-                    </div>
-                    <div class="have-account">
-                        <a href="#">Sign up now</a>
-                    </div>
-                </form>
+                        <div class="form-submit">
+                            <button class="submit-btn" type="submit">Sign In</button>
+                        </div>
+                        <div class="have-account">
+                            <a class="sign_up_now" href="#">Sign up now</a>
+                        </div>
+                    </form>
 
-            </div>
-            <div class="sign-up d-none">
-                <div class="top-text">
-                    <h3>Sign up</h3>
                 </div>
-                <form action="">
-                    <div class="input-area">
-                        <input id="register-input" class="first-name" type="text" placeholder="First Name">
-                        <input id="register-input" class="last-name" type="text" placeholder="Last Name">
-                        <input id="register-input" class="email" type="text" placeholder="Email">
-                        <input id="register-input" class="secret-key" type="text" placeholder="Secret Key">
-                        <select id="country-code" class="country-code">
-                            <option value="+994">+994</option>
-                            <option value="+90">+90</option>
-                            <option value="+1">+1</option>
-                        </select>
-                        </select>
-                        <input id="register-input" class="phone" type="text" placeholder="Phone Number">
-                        <input id="register-input" class="password" type="text" placeholder="Password">
-                        <input id="register-input" class="re-password" type="text" placeholder="Password Again">
-                        <!-- <i class="fa-solid fa-eye"></i>
-                            <i class="fa-solid fa-eye-slash d-none"></i> -->
+                <div class="sign-up border-lg">
+                    <div class="top-text">
+                        <h3>Sign up</h3>
                     </div>
-                    <div class="form-submit">
-                        <button class="submit-btn" type="submit">Sign Up</button>
-                    </div>
-                    <div class="have-account">
-                        <a class="have-account" href="#">Do you have an account?</a>
-                    </div>
-                </form>
-
+                    <form action="">
+                        <div class="input-area">
+                            <input id="register-input" class="first-name" type="text" placeholder="First Name">
+                            <input id="register-input" class="last-name" type="text" placeholder="Last Name">
+                            <input id="register-input" class="email" type="text" placeholder="Email">
+                            <input id="register-input" class="secret-key" type="text" placeholder="Secret Key">
+                            <select id="country-code" class="country-code">
+                                <option value="+994">+994</option>
+                                <option value="+90">+90</option>
+                                <option value="+1">+1</option>
+                            </select>
+                            </select>
+                            <input id="register-input" class="phone" type="text" placeholder="Phone Number">
+                            <input id="register-input" class="password" type="text" placeholder="Password">
+                            <input id="register-input" class="re-password" type="text" placeholder="Password Again">
+                            <!-- <i class="fa-solid fa-eye"></i>
+                                <i class="fa-solid fa-eye-slash d-none"></i> -->
+                        </div>
+                        <div class="form-submit">
+                            <button class="submit-btn" type="submit">Sign Up</button>
+                        </div>
+                        <div class="have-account">
+                            <a class="have-account sign_in_now" href="#">Do you have an account?</a>
+                        </div>
+                    </form>
+    
+                </div>
             </div>
         </div>
     </section>
@@ -82,8 +80,8 @@
 
 
 
+    <script src="scripts/cahnge_menu.js"></script>
     <script src="scripts/scripts.js"></script>
-    <script src="scripts/login-error-shake.js"></script>
 </body>
 
 </html>

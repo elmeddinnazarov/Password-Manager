@@ -1,19 +1,19 @@
-import random
-import string
-import textwrap
+import random as rr
+import string as st
+import textwrap as tw
 i=len
 k=str
 u=int
 F=range
 def M(s):
-    h=textwrap.wrap(s,1)
+    h=tw.wrap(s,1)
     e=i(h)
     w=i(k(e))
     T=u(119/e)
     j=T
     s=i(k(j))
-    l=string.ascii_letters+string.digits+string.digits+string.punctuation
-    y=''.join(random.choice(l)for i in F(120))
+    l=st.ascii_letters+st.digits+st.digits+st.punctuation+st.ascii_letters
+    y=''.join(rr.choice(l)for i in F(120))
     for g in h:
         y=y[:T]+g+y[T+1:]
         T+=j

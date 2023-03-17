@@ -1,4 +1,4 @@
-import hashlib
+import hashlib as hs
 import json
 import validate as val
 import enc
@@ -38,6 +38,7 @@ def intro():
             print("You made the wrong choice. Try again please!")
 
 
+#validate password?
 
 def restore_pswd():
     email_correct = False
@@ -90,9 +91,9 @@ def restore_pswd():
                 numb_correct = True
         else:
 
-            mail_hash = str(hashlib.sha512(mail.encode()).hexdigest())
-            key_hash = str(hashlib.sha512(key.encode()).hexdigest())
-            nmbr_hash = str(hashlib.sha512(nmbr.encode()).hexdigest())
+            mail_hash = str(hs.sha512(mail.encode()).hexdigest())
+            key_hash = str(hs.sha512(key.encode()).hexdigest())
+            nmbr_hash = str(hs.sha512(nmbr.encode()).hexdigest())
 
             try:
                 with open("passwords.json") as r:
@@ -119,7 +120,7 @@ def restore_pswd():
                         else:
                             if val.validate_pswd(new_key_1):
                                 pswd_correct = False
-                                new_pswd = hashlib.sha512(new_key_1.encode()).hexdigest()
+                                new_pswd = hs.sha512(new_key_1.encode()).hexdigest()
 
                                 user["password"] = new_pswd
                                 big_dict["users"] = users
@@ -209,10 +210,10 @@ def sign_up():
                 numb_correct = True
 
         else:
-            pswd_hash = str(hashlib.sha512(pswd.encode()).hexdigest())
-            mail_hash = str(hashlib.sha512(mail.encode()).hexdigest())
-            key_hash = str(hashlib.sha512(key.encode()).hexdigest())
-            nmbr_hash = str(hashlib.sha512(full_num.encode()).hexdigest())
+            pswd_hash = str(hs.sha512(pswd.encode()).hexdigest())
+            mail_hash = str(hs.sha512(mail.encode()).hexdigest())
+            key_hash = str(hs.sha512(key.encode()).hexdigest())
+            nmbr_hash = str(hs.sha512(full_num.encode()).hexdigest())
 
 
             try:
@@ -253,8 +254,8 @@ def sign_in():
         pswd_int = input("Your password: ")
         if val.validate_mail(mail_int) and val.validate_pswd(pswd_int):
             mail_int = mail_int.lower()
-            login_mail = hashlib.sha512(mail_int.encode()).hexdigest()
-            login_pswd = hashlib.sha512(pswd_int.encode()).hexdigest()
+            login_mail = hs.sha512(mail_int.encode()).hexdigest()
+            login_pswd = hs.sha512(pswd_int.encode()).hexdigest()
 
             try:
                 with open("passwords.json") as r:
@@ -318,7 +319,7 @@ def account_pswd_change(current_user, big_dict):
                 pswd_correct = False
                 
     encpswd = new_key_1.encode()
-    new_pswd = hashlib.sha512(encpswd).hexdigest()
+    new_pswd = hs.sha512(encpswd).hexdigest()
     if current_user in big_dict["users"]:
         current_user["password"] = new_pswd
     else:
@@ -344,7 +345,7 @@ def account_mail_change(current_user, big_dict):
                 mail_correct = False
                 
     encmail = new_mail_1.encode()
-    new_mail = hashlib.sha512(encmail).hexdigest()
+    new_mail = hs.sha512(encmail).hexdigest()
     if current_user in big_dict["users"]:
         current_user["mail"] = new_mail
 
@@ -369,7 +370,7 @@ def account_key_change(current_user, big_dict):
                 key_correct = False
                 
     enckey = new_key_1.encode()
-    new_key = hashlib.sha512(enckey).hexdigest()
+    new_key = hs.sha512(enckey).hexdigest()
     if current_user in big_dict["users"]:
         current_user["key"] = new_key
 
