@@ -1,4 +1,5 @@
 .vscode
-passwords.json
 default.db
-codematrixlink.txt
+venv
+app
+
