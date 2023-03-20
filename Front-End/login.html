@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
     <title>PM - Login</title>
 </head>
 
 
 <body>
-    <section class="auth-layer">
+    <section class="auth-layer ">
         <div class="overlay">
-            
+
             <div class="main-box">
                 <div class="sign-in border-lg">
                     <div class="top-text">
@@ -26,8 +26,8 @@
                     </div>
                     <form action="">
                         <div class="input-area">
-                            <input id="login-email" class="login-input" type="mail">
-                            <input id="login-password" class="login-input" type="password">
+                            <input id="login-email" class="login-input" type="mail" placeholder="Email">
+                            <input id="login-password" class="login-input" type="password" placeholder="Password">
                             <i class="eye-open fa-solid fa-eye"></i>
                             <i class="eye-close fa-solid fa-eye-slash d-none"></i>
                             <div class="forgot-password">
@@ -58,12 +58,15 @@
                                 <option value="+90">+90</option>
                                 <option value="+1">+1</option>
                             </select>
-                            </select>
                             <input class="register-input" id="phone" type="text" placeholder="Phone Number">
                             <input class="register-input" id="password" type="password" placeholder="Password">
                             <input class="register-input" id="re-password" type="password" placeholder="Password Again">
-                            <!-- <i class="fa-solid fa-eye"></i>
-                                <i class="fa-solid fa-eye-slash d-none"></i> -->
+                            <div id="verify-box">
+                                <input class="register-input" id="verify" type="checkbox" value="">
+                                <label for="verify">Allow 2-Step Verification</label>
+                                <i class="fa-solid fa-circle-info" id="info-icon"></i>
+                                <div id="info-popup" >2-Step Verification required you to enter a verification code sent to your email in addition to your password when logging in.</div>
+                            </div>
                         </div>
                         <div class="form-submit">
                             <button class="submit-btn" type="submit">Sign Up</button>
@@ -72,7 +75,7 @@
                             <a class="have-account sign_in_now" href="#">Do you have an account?</a>
                         </div>
                     </form>
-    
+
                 </div>
             </div>
         </div>
@@ -83,6 +86,7 @@
 
     <script src="scripts/cahnge_menu.js"></script>
     <script src="scripts/scripts.js"></script>
+
 </body>
 
 </html>

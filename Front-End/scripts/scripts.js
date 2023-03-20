@@ -13,3 +13,24 @@ hide_pswd.onclick = function() {
     hide_pswd.classList.add("d-none")
     show_pswd.classList.remove("d-none")
 }
+
+
+
+
+
+
+
+
+const infoIcon = document.getElementById("info-icon");
+const infoPopup = document.getElementById("info-popup");
+
+infoIcon.addEventListener("mouseover", showInfoPopup);
+infoIcon.addEventListener("mouseout", hideInfoPopup);
+
+function showInfoPopup() {
+  infoPopup.style.display = "block";
+}
+
+function hideInfoPopup() {
+  infoPopup.style.display = "none";
+}

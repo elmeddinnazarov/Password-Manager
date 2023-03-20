@@ -47,23 +47,25 @@
   width: 100%;
   background-color: rgba(255, 255, 255, 0.058);
   border-radius: 20px;
+  transform: scale(1);
   position: absolute;
   left: 0%;
-  top: 0;
+  top: 0%;
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
-  padding: 40px 30px;
 }
 .auth-layer .overlay .main-box .sign-in.sign-in, .auth-layer .overlay .main-box .sign-up.sign-in {
   margin-top: 10%;
-  top: 0%;
+  top: 130%;
+  padding: 40px 0px;
 }
 .auth-layer .overlay .main-box .sign-in.sign-up, .auth-layer .overlay .main-box .sign-up.sign-up {
-  top: -99%;
+  top: 0%;
+  padding: 40px 60px;
 }
 .auth-layer .overlay .main-box .sign-in .top-text, .auth-layer .overlay .main-box .sign-up .top-text {
   width: 80%;
-  margin: auto;
+  margin: auto auto 40px auto;
 }
 .auth-layer .overlay .main-box .sign-in .top-text h3, .auth-layer .overlay .main-box .sign-up .top-text h3 {
   text-align: center;
@@ -73,14 +75,12 @@
   color: rgba(255, 255, 255, 0.5882352941);
 }
 .auth-layer .overlay .main-box .sign-in .input-area, .auth-layer .overlay .main-box .sign-up .input-area {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 35px 10px;
   position: relative;
 }
 .auth-layer .overlay .main-box .sign-in .input-area .login-input, .auth-layer .overlay .main-box .sign-in .input-area .register-input, .auth-layer .overlay .main-box .sign-in .input-area #country-code, .auth-layer .overlay .main-box .sign-up .input-area .login-input, .auth-layer .overlay .main-box .sign-up .input-area .register-input, .auth-layer .overlay .main-box .sign-up .input-area #country-code {
-  margin-top: 35px;
   background-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2470588235);
   color: rgba(255, 255, 255, 0.6862745098);
@@ -90,49 +90,97 @@
 .auth-layer .overlay .main-box .sign-in .input-area .login-input:focus, .auth-layer .overlay .main-box .sign-in .input-area .register-input:focus, .auth-layer .overlay .main-box .sign-in .input-area #country-code:focus, .auth-layer .overlay .main-box .sign-up .input-area .login-input:focus, .auth-layer .overlay .main-box .sign-up .input-area .register-input:focus, .auth-layer .overlay .main-box .sign-up .input-area #country-code:focus {
   outline: 1px solid #ffffff;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .login-input.login-input, .auth-layer .overlay .main-box .sign-in .input-area .register-input.login-input, .auth-layer .overlay .main-box .sign-in .input-area #country-code.login-input, .auth-layer .overlay .main-box .sign-up .input-area .login-input.login-input, .auth-layer .overlay .main-box .sign-up .input-area .register-input.login-input, .auth-layer .overlay .main-box .sign-up .input-area #country-code.login-input {
-  width: 70% !important;
+.auth-layer .overlay .main-box .sign-in .input-area #first-name, .auth-layer .overlay .main-box .sign-in .input-area #last-name, .auth-layer .overlay .main-box .sign-in .input-area #login-email, .auth-layer .overlay .main-box .sign-in .input-area #register-email, .auth-layer .overlay .main-box .sign-in .input-area #secret-key, .auth-layer .overlay .main-box .sign-in .input-area #phone, .auth-layer .overlay .main-box .sign-in .input-area #login-password, .auth-layer .overlay .main-box .sign-in .input-area #password, .auth-layer .overlay .main-box .sign-in .input-area #re-password, .auth-layer .overlay .main-box .sign-up .input-area #first-name, .auth-layer .overlay .main-box .sign-up .input-area #last-name, .auth-layer .overlay .main-box .sign-up .input-area #login-email, .auth-layer .overlay .main-box .sign-up .input-area #register-email, .auth-layer .overlay .main-box .sign-up .input-area #secret-key, .auth-layer .overlay .main-box .sign-up .input-area #phone, .auth-layer .overlay .main-box .sign-up .input-area #login-password, .auth-layer .overlay .main-box .sign-up .input-area #password, .auth-layer .overlay .main-box .sign-up .input-area #re-password {
+  padding: 10px 20px;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #country-code, .auth-layer .overlay .main-box .sign-up .input-area #country-code {
-  width: 18%;
-  margin-right: 20px;
-  padding: 0 10px;
+.auth-layer .overlay .main-box .sign-in .input-area #login-email, .auth-layer .overlay .main-box .sign-up .input-area #login-email {
+  grid-column: 2/6;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #first-name, .auth-layer .overlay .main-box .sign-in .input-area #last-name, .auth-layer .overlay .main-box .sign-in .input-area #login-email, .auth-layer .overlay .main-box .sign-in .input-area #register-email, .auth-layer .overlay .main-box .sign-in .input-area #secret-key, .auth-layer .overlay .main-box .sign-in .input-area #login-password, .auth-layer .overlay .main-box .sign-in .input-area #re-password, .auth-layer .overlay .main-box .sign-up .input-area #first-name, .auth-layer .overlay .main-box .sign-up .input-area #last-name, .auth-layer .overlay .main-box .sign-up .input-area #login-email, .auth-layer .overlay .main-box .sign-up .input-area #register-email, .auth-layer .overlay .main-box .sign-up .input-area #secret-key, .auth-layer .overlay .main-box .sign-up .input-area #login-password, .auth-layer .overlay .main-box .sign-up .input-area #re-password {
-  padding: 10px 15px;
-  width: 45%;
-  margin-right: 10px;
+.auth-layer .overlay .main-box .sign-in .input-area #login-password, .auth-layer .overlay .main-box .sign-up .input-area #login-password {
+  grid-column: 2/6;
+}
+.auth-layer .overlay .main-box .sign-in .input-area #first-name, .auth-layer .overlay .main-box .sign-up .input-area #first-name {
+  grid-column: 1/4;
+}
+.auth-layer .overlay .main-box .sign-in .input-area #last-name, .auth-layer .overlay .main-box .sign-up .input-area #last-name {
+  grid-column: 4/7;
+}
+.auth-layer .overlay .main-box .sign-in .input-area #register-email, .auth-layer .overlay .main-box .sign-up .input-area #register-email {
+  grid-column: 1/4;
+}
+.auth-layer .overlay .main-box .sign-in .input-area #secret-key, .auth-layer .overlay .main-box .sign-up .input-area #secret-key {
+  grid-column: 4/7;
 }
 .auth-layer .overlay .main-box .sign-in .input-area #phone, .auth-layer .overlay .main-box .sign-up .input-area #phone {
-  width: 70%;
-  padding: 10px 15px;
+  grid-column: 2/7;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #password, .auth-layer .overlay .main-box .sign-in .input-area #re-password, .auth-layer .overlay .main-box .sign-up .input-area #password, .auth-layer .overlay .main-box .sign-up .input-area #re-password {
-  padding: 10px 50px 10px 15px;
+.auth-layer .overlay .main-box .sign-in .input-area #password, .auth-layer .overlay .main-box .sign-up .input-area #password {
+  grid-column: 1/4;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #password#password, .auth-layer .overlay .main-box .sign-in .input-area #re-password#password, .auth-layer .overlay .main-box .sign-up .input-area #password#password, .auth-layer .overlay .main-box .sign-up .input-area #re-password#password {
-  margin-right: 10px;
+.auth-layer .overlay .main-box .sign-in .input-area #re-password, .auth-layer .overlay .main-box .sign-up .input-area #re-password {
+  grid-column: 4/7;
 }
-.auth-layer .overlay .main-box .sign-in .input-area i, .auth-layer .overlay .main-box .sign-up .input-area i {
+.auth-layer .overlay .main-box .sign-in .input-area #country-code, .auth-layer .overlay .main-box .sign-up .input-area #country-code {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  text-align: center;
+  grid-column: 1/2;
+}
+.auth-layer .overlay .main-box .sign-in .input-area #verify-box, .auth-layer .overlay .main-box .sign-up .input-area #verify-box {
+  grid-column: 1/7;
+  outline: none;
+  border: none;
+}
+.auth-layer .overlay .main-box .sign-in .input-area #verify-box label, .auth-layer .overlay .main-box .sign-up .input-area #verify-box label {
+  padding: 0 10px;
+  color: rgba(255, 255, 255, 0.4588235294);
+}
+.auth-layer .overlay .main-box .sign-in .input-area #verify-box i, .auth-layer .overlay .main-box .sign-up .input-area #verify-box i {
+  color: rgba(255, 255, 255, 0.4588235294);
+}
+.auth-layer .overlay .main-box .sign-in .input-area #verify-box i:hover, .auth-layer .overlay .main-box .sign-up .input-area #verify-box i:hover {
+  color: #fff;
+}
+.auth-layer .overlay .main-box .sign-in .input-area #verify-box #info-popup, .auth-layer .overlay .main-box .sign-up .input-area #verify-box #info-popup {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2470588235);
+  color: rgba(255, 255, 255, 0.6862745098);
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  width: 380px;
   position: absolute;
-  top: 81%;
+  left: 42%;
+  top: 87%;
+  display: none;
+  font-size: 14px;
+}
+.auth-layer .overlay .main-box .sign-in .input-area .eye-open, .auth-layer .overlay .main-box .sign-in .input-area .eye-close, .auth-layer .overlay .main-box .sign-up .input-area .eye-open, .auth-layer .overlay .main-box .sign-up .input-area .eye-close {
+  position: absolute;
+  top: 75%;
   left: 78%;
   font-size: 18px;
   color: rgba(255, 255, 255, 0.4588235294);
   cursor: pointer;
   opacity: 0.5;
 }
-.auth-layer .overlay .main-box .sign-in .input-area i:hover, .auth-layer .overlay .main-box .sign-up .input-area i:hover {
+.auth-layer .overlay .main-box .sign-in .input-area .eye-open:hover, .auth-layer .overlay .main-box .sign-in .input-area .eye-close:hover, .auth-layer .overlay .main-box .sign-up .input-area .eye-open:hover, .auth-layer .overlay .main-box .sign-up .input-area .eye-close:hover {
   opacity: 1;
 }
 .auth-layer .overlay .main-box .sign-in .input-area .forgot-password, .auth-layer .overlay .main-box .sign-up .input-area .forgot-password {
   position: absolute;
-  top: 110%;
-  left: 65%;
+  bottom: -30%;
+  right: 17%;
 }
 .auth-layer .overlay .main-box .sign-in .input-area .forgot-password a, .auth-layer .overlay .main-box .sign-up .input-area .forgot-password a {
-  font-size: 12px;
+  text-decoration: none;
+  font-size: 15px;
   color: rgba(255, 255, 255, 0.337254902);
+  transition: 300ms;
+}
+.auth-layer .overlay .main-box .sign-in .input-area .forgot-password a:hover, .auth-layer .overlay .main-box .sign-up .input-area .forgot-password a:hover {
+  color: #ffffff;
 }
 .auth-layer .overlay .main-box .sign-in .form-submit, .auth-layer .overlay .main-box .sign-up .form-submit {
   display: flex;
@@ -145,7 +193,7 @@
   background-color: #ffffff;
   color: #000000;
   border: 1px solid #ffffff;
-  transition: 200ms ease-in-out;
+  transition: 300ms ease-in-out;
 }
 .auth-layer .overlay .main-box .sign-in .form-submit .submit-btn:hover, .auth-layer .overlay .main-box .sign-up .form-submit .submit-btn:hover {
   background-color: transparent;
@@ -158,6 +206,10 @@
 .auth-layer .overlay .main-box .sign-in .have-account a, .auth-layer .overlay .main-box .sign-up .have-account a {
   color: rgba(255, 255, 255, 0.4823529412);
   text-decoration: none;
+  transition: 300ms;
+}
+.auth-layer .overlay .main-box .sign-in .have-account a:hover, .auth-layer .overlay .main-box .sign-up .have-account a:hover {
+  color: #ffffff;
 }
 @keyframes border-light {
   0% {

@@ -42,22 +42,29 @@
                 width: 100%;
                 background-color: rgba(255, 255, 255, 0.058);
                 border-radius: 20px;
+                transform: scale(1);
                 position: absolute;
                 left: 0%;
-                top: 0;
-                backdrop-filter: blur(5px);
-                padding: 40px 30px;
-
-            &.sign-in{
-                margin-top: 10%;
                 top: 0%;
-            }
-            &.sign-up{
-                top: -99%;
-            }
+                backdrop-filter: blur(5px);
+
+                &.sign-in{
+                    margin-top: 10%;
+                    top: 130%;
+                    padding: 40px 0px;
+
+
+                }
+
+                &.sign-up{
+                    top: 0%;
+                    padding: 40px 60px;
+
+                }
+
                 .top-text{
                     width: 80%;
-                    margin: auto;
+                    margin: auto auto 40px auto;
     
                     h3{
                         text-align: center;
@@ -69,15 +76,13 @@
     
                 }
                 .input-area{
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    flex-wrap: wrap;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+                    grid-gap: 35px 10px;
                     position: relative;
     
     
                     .login-input, .register-input, #country-code{
-                        margin-top: 35px;
                         background-color: transparent;
                         border: 1px solid #ffffff3f;
                         color: #ffffffaf;
@@ -86,40 +91,77 @@
                         &:focus{
                         outline: 1px solid #ffffff;
                         }
-                        &.login-input{
-                            width: 70% !important;
-                        }
+
                     }
-    
-    
-    
-                    #country-code{
-                        width: 18%;
-                        margin-right: 20px;
-                        padding:0 10px;
+                    #first-name, #last-name, #login-email, #register-email, #secret-key, #phone, #login-password, #password, #re-password{
+                        padding: 10px 20px;
                     }
-    
-                    #first-name, #last-name, #login-email, #register-email, #secret-key, #login-password, #re-password{
-                        padding: 10px 15px;
-                        width: 45%;
-                        margin-right: 10px;
+                    #login-email{
+                        grid-column: 2/6;
                     }
-    
+                    #login-password{
+                        grid-column: 2/6;
+                    }
+                    #first-name{
+                        grid-column: 1/4;
+                    }
+                    #last-name{
+                        grid-column: 4/7;
+                    }
+                    #register-email{
+                        grid-column: 1/4;
+                    }
+                    #secret-key{
+                        grid-column: 4/7;
+                    }
                     #phone{
-                        width: 70%;
-                        padding: 10px 15px;
+                        grid-column: 2/7;
                     }
-    
-                    #password, #re-password{
-                        padding: 10px 50px 10px 15px;
-                        &#password{
-                            margin-right: 10px;
+                    #password{
+                        grid-column: 1/4;
+                    }
+                    #re-password{
+                        grid-column: 4/7;
+                    }
+                    #country-code{
+                        appearance:none;
+                        text-align: center;
+                        grid-column: 1/2;
+                    }
+                    #verify-box{
+                        grid-column: 1/7;
+                        outline: none;
+                        border: none;
+
+                        label{
+                            padding:0 10px;
+                            color:#ffffff75 ;
+                        }
+                        i{
+                            color: #ffffff75;
+                            &:hover{
+                                color: #fff;
+                            }
+                        }
+                        #info-popup{
+                            background-color: transparent;
+                            border: 1px solid #ffffff3f;
+                            color: #ffffffaf;
+                            border-radius: 10px;
+                            outline: none;
+                            padding: 10px;
+                            width: 380px;
+                            position: absolute;
+                            left: 42%;
+                            top: 87%;
+                            display: none;
+                            font-size: 14px;
                         }
                     }
-    
-                    i{
+
+                    .eye-open, .eye-close{
                         position: absolute;
-                        top: 81%;
+                        top: 75%;
                         left: 78%;
                         font-size: 18px;
                         color: #ffffff75;
@@ -129,16 +171,20 @@
                             opacity: 1;
                         }
                     }
-                    
-    
+
+
                     .forgot-password{
                         position: absolute;
-                        top: 110%;
-                        left: 65%;
-                        
+                        bottom: -30%;
+                        right: 17%;
                         a{
-                            font-size: 12px;
+                            text-decoration: none;
+                            font-size: 15px;
                             color: #ffffff56;
+                            transition: 300ms;
+                            &:hover{
+                                color: #ffffff;
+                            }
                         }
                     }
     
@@ -154,7 +200,7 @@
                         background-color: #ffffff;
                         color: #000000;
                         border: 1px solid #ffffff;
-                        transition: 200ms ease-in-out;
+                        transition: 300ms ease-in-out;
     
                         &:hover{
                             background-color: transparent;
@@ -162,7 +208,6 @@
                         }
                     }
                 }
-    
                 .have-account{
                     text-align: center;
                     margin-top: 30px;
@@ -171,9 +216,14 @@
                     a{
                         color: #ffffff7b;
                         text-decoration: none;
+                        transition: 300ms;
+                        &:hover{
+                            color: #ffffff;
+                        }
                     }
                 }
             }
+
         }
 
 
