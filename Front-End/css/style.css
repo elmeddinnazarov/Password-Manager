@@ -43,7 +43,7 @@
   width: 40vw;
   overflow: hidden;
 }
-.auth-layer .overlay .main-box .sign-in, .auth-layer .overlay .main-box .sign-up {
+.auth-layer .overlay .main-box .sign-in, .auth-layer .overlay .main-box .sign-up, .auth-layer .overlay .main-box .confirmation {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.058);
   border-radius: 20px;
@@ -54,95 +54,95 @@
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
 }
-.auth-layer .overlay .main-box .sign-in.sign-in, .auth-layer .overlay .main-box .sign-up.sign-in {
+.auth-layer .overlay .main-box .sign-in.sign-in, .auth-layer .overlay .main-box .sign-up.sign-in, .auth-layer .overlay .main-box .confirmation.sign-in {
   margin-top: 10%;
   top: 130%;
   padding: 40px 0px;
 }
-.auth-layer .overlay .main-box .sign-in.sign-up, .auth-layer .overlay .main-box .sign-up.sign-up {
+.auth-layer .overlay .main-box .sign-in.sign-up, .auth-layer .overlay .main-box .sign-up.sign-up, .auth-layer .overlay .main-box .confirmation.sign-up {
   top: 0%;
   padding: 40px 60px;
 }
-.auth-layer .overlay .main-box .sign-in .top-text, .auth-layer .overlay .main-box .sign-up .top-text {
+.auth-layer .overlay .main-box .sign-in .top-text, .auth-layer .overlay .main-box .sign-up .top-text, .auth-layer .overlay .main-box .confirmation .top-text {
   width: 80%;
   margin: auto auto 40px auto;
 }
-.auth-layer .overlay .main-box .sign-in .top-text h3, .auth-layer .overlay .main-box .sign-up .top-text h3 {
+.auth-layer .overlay .main-box .sign-in .top-text h3, .auth-layer .overlay .main-box .sign-up .top-text h3, .auth-layer .overlay .main-box .confirmation .top-text h3 {
   text-align: center;
   font-size: 30px;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
   color: rgba(255, 255, 255, 0.5882352941);
 }
-.auth-layer .overlay .main-box .sign-in .input-area, .auth-layer .overlay .main-box .sign-up .input-area {
+.auth-layer .overlay .main-box .sign-in .input-area, .auth-layer .overlay .main-box .sign-up .input-area, .auth-layer .overlay .main-box .confirmation .input-area {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 35px 10px;
   position: relative;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .login-input, .auth-layer .overlay .main-box .sign-in .input-area .register-input, .auth-layer .overlay .main-box .sign-in .input-area #country-code, .auth-layer .overlay .main-box .sign-up .input-area .login-input, .auth-layer .overlay .main-box .sign-up .input-area .register-input, .auth-layer .overlay .main-box .sign-up .input-area #country-code {
+.auth-layer .overlay .main-box .sign-in .input-area .login-input, .auth-layer .overlay .main-box .sign-in .input-area .register-input, .auth-layer .overlay .main-box .sign-in .input-area #country-code, .auth-layer .overlay .main-box .sign-up .input-area .login-input, .auth-layer .overlay .main-box .sign-up .input-area .register-input, .auth-layer .overlay .main-box .sign-up .input-area #country-code, .auth-layer .overlay .main-box .confirmation .input-area .login-input, .auth-layer .overlay .main-box .confirmation .input-area .register-input, .auth-layer .overlay .main-box .confirmation .input-area #country-code {
   background-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2470588235);
   color: rgba(255, 255, 255, 0.6862745098);
   border-radius: 10px;
   outline: none;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .login-input:focus, .auth-layer .overlay .main-box .sign-in .input-area .register-input:focus, .auth-layer .overlay .main-box .sign-in .input-area #country-code:focus, .auth-layer .overlay .main-box .sign-up .input-area .login-input:focus, .auth-layer .overlay .main-box .sign-up .input-area .register-input:focus, .auth-layer .overlay .main-box .sign-up .input-area #country-code:focus {
+.auth-layer .overlay .main-box .sign-in .input-area .login-input:focus, .auth-layer .overlay .main-box .sign-in .input-area .register-input:focus, .auth-layer .overlay .main-box .sign-in .input-area #country-code:focus, .auth-layer .overlay .main-box .sign-up .input-area .login-input:focus, .auth-layer .overlay .main-box .sign-up .input-area .register-input:focus, .auth-layer .overlay .main-box .sign-up .input-area #country-code:focus, .auth-layer .overlay .main-box .confirmation .input-area .login-input:focus, .auth-layer .overlay .main-box .confirmation .input-area .register-input:focus, .auth-layer .overlay .main-box .confirmation .input-area #country-code:focus {
   outline: 1px solid #ffffff;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #first-name, .auth-layer .overlay .main-box .sign-in .input-area #last-name, .auth-layer .overlay .main-box .sign-in .input-area #login-email, .auth-layer .overlay .main-box .sign-in .input-area #register-email, .auth-layer .overlay .main-box .sign-in .input-area #secret-key, .auth-layer .overlay .main-box .sign-in .input-area #phone, .auth-layer .overlay .main-box .sign-in .input-area #login-password, .auth-layer .overlay .main-box .sign-in .input-area #password, .auth-layer .overlay .main-box .sign-in .input-area #re-password, .auth-layer .overlay .main-box .sign-up .input-area #first-name, .auth-layer .overlay .main-box .sign-up .input-area #last-name, .auth-layer .overlay .main-box .sign-up .input-area #login-email, .auth-layer .overlay .main-box .sign-up .input-area #register-email, .auth-layer .overlay .main-box .sign-up .input-area #secret-key, .auth-layer .overlay .main-box .sign-up .input-area #phone, .auth-layer .overlay .main-box .sign-up .input-area #login-password, .auth-layer .overlay .main-box .sign-up .input-area #password, .auth-layer .overlay .main-box .sign-up .input-area #re-password {
+.auth-layer .overlay .main-box .sign-in .input-area #first-name, .auth-layer .overlay .main-box .sign-in .input-area #last-name, .auth-layer .overlay .main-box .sign-in .input-area #login-email, .auth-layer .overlay .main-box .sign-in .input-area #register-email, .auth-layer .overlay .main-box .sign-in .input-area #secret-key, .auth-layer .overlay .main-box .sign-in .input-area #phone, .auth-layer .overlay .main-box .sign-in .input-area #login-password, .auth-layer .overlay .main-box .sign-in .input-area #password, .auth-layer .overlay .main-box .sign-in .input-area #re-password, .auth-layer .overlay .main-box .sign-up .input-area #first-name, .auth-layer .overlay .main-box .sign-up .input-area #last-name, .auth-layer .overlay .main-box .sign-up .input-area #login-email, .auth-layer .overlay .main-box .sign-up .input-area #register-email, .auth-layer .overlay .main-box .sign-up .input-area #secret-key, .auth-layer .overlay .main-box .sign-up .input-area #phone, .auth-layer .overlay .main-box .sign-up .input-area #login-password, .auth-layer .overlay .main-box .sign-up .input-area #password, .auth-layer .overlay .main-box .sign-up .input-area #re-password, .auth-layer .overlay .main-box .confirmation .input-area #first-name, .auth-layer .overlay .main-box .confirmation .input-area #last-name, .auth-layer .overlay .main-box .confirmation .input-area #login-email, .auth-layer .overlay .main-box .confirmation .input-area #register-email, .auth-layer .overlay .main-box .confirmation .input-area #secret-key, .auth-layer .overlay .main-box .confirmation .input-area #phone, .auth-layer .overlay .main-box .confirmation .input-area #login-password, .auth-layer .overlay .main-box .confirmation .input-area #password, .auth-layer .overlay .main-box .confirmation .input-area #re-password {
   padding: 10px 20px;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #login-email, .auth-layer .overlay .main-box .sign-up .input-area #login-email {
+.auth-layer .overlay .main-box .sign-in .input-area #login-email, .auth-layer .overlay .main-box .sign-up .input-area #login-email, .auth-layer .overlay .main-box .confirmation .input-area #login-email {
   grid-column: 2/6;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #login-password, .auth-layer .overlay .main-box .sign-up .input-area #login-password {
+.auth-layer .overlay .main-box .sign-in .input-area #login-password, .auth-layer .overlay .main-box .sign-up .input-area #login-password, .auth-layer .overlay .main-box .confirmation .input-area #login-password {
   grid-column: 2/6;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #first-name, .auth-layer .overlay .main-box .sign-up .input-area #first-name {
+.auth-layer .overlay .main-box .sign-in .input-area #first-name, .auth-layer .overlay .main-box .sign-up .input-area #first-name, .auth-layer .overlay .main-box .confirmation .input-area #first-name {
   grid-column: 1/4;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #last-name, .auth-layer .overlay .main-box .sign-up .input-area #last-name {
+.auth-layer .overlay .main-box .sign-in .input-area #last-name, .auth-layer .overlay .main-box .sign-up .input-area #last-name, .auth-layer .overlay .main-box .confirmation .input-area #last-name {
   grid-column: 4/7;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #register-email, .auth-layer .overlay .main-box .sign-up .input-area #register-email {
+.auth-layer .overlay .main-box .sign-in .input-area #register-email, .auth-layer .overlay .main-box .sign-up .input-area #register-email, .auth-layer .overlay .main-box .confirmation .input-area #register-email {
   grid-column: 1/4;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #secret-key, .auth-layer .overlay .main-box .sign-up .input-area #secret-key {
+.auth-layer .overlay .main-box .sign-in .input-area #secret-key, .auth-layer .overlay .main-box .sign-up .input-area #secret-key, .auth-layer .overlay .main-box .confirmation .input-area #secret-key {
   grid-column: 4/7;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #phone, .auth-layer .overlay .main-box .sign-up .input-area #phone {
+.auth-layer .overlay .main-box .sign-in .input-area #phone, .auth-layer .overlay .main-box .sign-up .input-area #phone, .auth-layer .overlay .main-box .confirmation .input-area #phone {
   grid-column: 2/7;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #password, .auth-layer .overlay .main-box .sign-up .input-area #password {
+.auth-layer .overlay .main-box .sign-in .input-area #password, .auth-layer .overlay .main-box .sign-up .input-area #password, .auth-layer .overlay .main-box .confirmation .input-area #password {
   grid-column: 1/4;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #re-password, .auth-layer .overlay .main-box .sign-up .input-area #re-password {
+.auth-layer .overlay .main-box .sign-in .input-area #re-password, .auth-layer .overlay .main-box .sign-up .input-area #re-password, .auth-layer .overlay .main-box .confirmation .input-area #re-password {
   grid-column: 4/7;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #country-code, .auth-layer .overlay .main-box .sign-up .input-area #country-code {
+.auth-layer .overlay .main-box .sign-in .input-area #country-code, .auth-layer .overlay .main-box .sign-up .input-area #country-code, .auth-layer .overlay .main-box .confirmation .input-area #country-code {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
   text-align: center;
   grid-column: 1/2;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #verify-box, .auth-layer .overlay .main-box .sign-up .input-area #verify-box {
+.auth-layer .overlay .main-box .sign-in .input-area #verify-box, .auth-layer .overlay .main-box .sign-up .input-area #verify-box, .auth-layer .overlay .main-box .confirmation .input-area #verify-box {
   grid-column: 1/7;
   outline: none;
   border: none;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #verify-box label, .auth-layer .overlay .main-box .sign-up .input-area #verify-box label {
+.auth-layer .overlay .main-box .sign-in .input-area #verify-box label, .auth-layer .overlay .main-box .sign-up .input-area #verify-box label, .auth-layer .overlay .main-box .confirmation .input-area #verify-box label {
   padding: 0 10px;
   color: rgba(255, 255, 255, 0.4588235294);
 }
-.auth-layer .overlay .main-box .sign-in .input-area #verify-box i, .auth-layer .overlay .main-box .sign-up .input-area #verify-box i {
+.auth-layer .overlay .main-box .sign-in .input-area #verify-box i, .auth-layer .overlay .main-box .sign-up .input-area #verify-box i, .auth-layer .overlay .main-box .confirmation .input-area #verify-box i {
   color: rgba(255, 255, 255, 0.4588235294);
 }
-.auth-layer .overlay .main-box .sign-in .input-area #verify-box i:hover, .auth-layer .overlay .main-box .sign-up .input-area #verify-box i:hover {
+.auth-layer .overlay .main-box .sign-in .input-area #verify-box i:hover, .auth-layer .overlay .main-box .sign-up .input-area #verify-box i:hover, .auth-layer .overlay .main-box .confirmation .input-area #verify-box i:hover {
   color: #fff;
 }
-.auth-layer .overlay .main-box .sign-in .input-area #verify-box #info-popup, .auth-layer .overlay .main-box .sign-up .input-area #verify-box #info-popup {
+.auth-layer .overlay .main-box .sign-in .input-area #verify-box #info-popup, .auth-layer .overlay .main-box .sign-up .input-area #verify-box #info-popup, .auth-layer .overlay .main-box .confirmation .input-area #verify-box #info-popup {
   background-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2470588235);
   color: rgba(255, 255, 255, 0.6862745098);
@@ -156,7 +156,7 @@
   display: none;
   font-size: 14px;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .eye-open, .auth-layer .overlay .main-box .sign-in .input-area .eye-close, .auth-layer .overlay .main-box .sign-up .input-area .eye-open, .auth-layer .overlay .main-box .sign-up .input-area .eye-close {
+.auth-layer .overlay .main-box .sign-in .input-area .eye-open, .auth-layer .overlay .main-box .sign-in .input-area .eye-close, .auth-layer .overlay .main-box .sign-up .input-area .eye-open, .auth-layer .overlay .main-box .sign-up .input-area .eye-close, .auth-layer .overlay .main-box .confirmation .input-area .eye-open, .auth-layer .overlay .main-box .confirmation .input-area .eye-close {
   position: absolute;
   top: 75%;
   left: 78%;
@@ -165,29 +165,29 @@
   cursor: pointer;
   opacity: 0.5;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .eye-open:hover, .auth-layer .overlay .main-box .sign-in .input-area .eye-close:hover, .auth-layer .overlay .main-box .sign-up .input-area .eye-open:hover, .auth-layer .overlay .main-box .sign-up .input-area .eye-close:hover {
+.auth-layer .overlay .main-box .sign-in .input-area .eye-open:hover, .auth-layer .overlay .main-box .sign-in .input-area .eye-close:hover, .auth-layer .overlay .main-box .sign-up .input-area .eye-open:hover, .auth-layer .overlay .main-box .sign-up .input-area .eye-close:hover, .auth-layer .overlay .main-box .confirmation .input-area .eye-open:hover, .auth-layer .overlay .main-box .confirmation .input-area .eye-close:hover {
   opacity: 1;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .forgot-password, .auth-layer .overlay .main-box .sign-up .input-area .forgot-password {
+.auth-layer .overlay .main-box .sign-in .input-area .forgot-password, .auth-layer .overlay .main-box .sign-up .input-area .forgot-password, .auth-layer .overlay .main-box .confirmation .input-area .forgot-password {
   position: absolute;
   bottom: -30%;
   right: 17%;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .forgot-password a, .auth-layer .overlay .main-box .sign-up .input-area .forgot-password a {
+.auth-layer .overlay .main-box .sign-in .input-area .forgot-password a, .auth-layer .overlay .main-box .sign-up .input-area .forgot-password a, .auth-layer .overlay .main-box .confirmation .input-area .forgot-password a {
   text-decoration: none;
   font-size: 15px;
   color: rgba(255, 255, 255, 0.337254902);
   transition: 300ms;
 }
-.auth-layer .overlay .main-box .sign-in .input-area .forgot-password a:hover, .auth-layer .overlay .main-box .sign-up .input-area .forgot-password a:hover {
+.auth-layer .overlay .main-box .sign-in .input-area .forgot-password a:hover, .auth-layer .overlay .main-box .sign-up .input-area .forgot-password a:hover, .auth-layer .overlay .main-box .confirmation .input-area .forgot-password a:hover {
   color: #ffffff;
 }
-.auth-layer .overlay .main-box .sign-in .form-submit, .auth-layer .overlay .main-box .sign-up .form-submit {
+.auth-layer .overlay .main-box .sign-in .form-submit, .auth-layer .overlay .main-box .sign-up .form-submit, .auth-layer .overlay .main-box .confirmation .form-submit {
   display: flex;
   justify-content: center;
   margin-top: 65px;
 }
-.auth-layer .overlay .main-box .sign-in .form-submit .submit-btn, .auth-layer .overlay .main-box .sign-up .form-submit .submit-btn {
+.auth-layer .overlay .main-box .sign-in .form-submit .submit-btn, .auth-layer .overlay .main-box .sign-up .form-submit .submit-btn, .auth-layer .overlay .main-box .confirmation .form-submit .submit-btn {
   padding: 10px 40px;
   border-radius: 20px;
   background-color: #ffffff;
@@ -195,21 +195,61 @@
   border: 1px solid #ffffff;
   transition: 300ms ease-in-out;
 }
-.auth-layer .overlay .main-box .sign-in .form-submit .submit-btn:hover, .auth-layer .overlay .main-box .sign-up .form-submit .submit-btn:hover {
+.auth-layer .overlay .main-box .sign-in .form-submit .submit-btn:hover, .auth-layer .overlay .main-box .sign-up .form-submit .submit-btn:hover, .auth-layer .overlay .main-box .confirmation .form-submit .submit-btn:hover {
   background-color: transparent;
   color: #fff;
 }
-.auth-layer .overlay .main-box .sign-in .have-account, .auth-layer .overlay .main-box .sign-up .have-account {
+.auth-layer .overlay .main-box .sign-in .have-account, .auth-layer .overlay .main-box .sign-up .have-account, .auth-layer .overlay .main-box .confirmation .have-account {
   text-align: center;
   margin-top: 30px;
 }
-.auth-layer .overlay .main-box .sign-in .have-account a, .auth-layer .overlay .main-box .sign-up .have-account a {
+.auth-layer .overlay .main-box .sign-in .have-account a, .auth-layer .overlay .main-box .sign-up .have-account a, .auth-layer .overlay .main-box .confirmation .have-account a {
   color: rgba(255, 255, 255, 0.4823529412);
   text-decoration: none;
   transition: 300ms;
 }
-.auth-layer .overlay .main-box .sign-in .have-account a:hover, .auth-layer .overlay .main-box .sign-up .have-account a:hover {
+.auth-layer .overlay .main-box .sign-in .have-account a:hover, .auth-layer .overlay .main-box .sign-up .have-account a:hover, .auth-layer .overlay .main-box .confirmation .have-account a:hover {
   color: #ffffff;
+}
+.auth-layer .overlay .main-box .confirmation {
+  margin-top: 20%;
+  height: 300px;
+  padding: 50px;
+  transform: scale(0);
+}
+.auth-layer .overlay .main-box .confirmation h3 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  color: rgba(255, 255, 255, 0.5882352941);
+  margin-bottom: 50px;
+}
+.auth-layer .overlay .main-box .confirmation .conf-text {
+  color: rgba(255, 255, 255, 0.5882352941);
+  margin-bottom: 50px;
+}
+.auth-layer .overlay .main-box .confirmation a {
+  text-decoration: none;
+  padding: 10px 40px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  transition: 300ms ease-in-out;
+  position: absolute;
+}
+.auth-layer .overlay .main-box .confirmation a:hover {
+  background-color: transparent;
+  color: #fff;
+}
+.auth-layer .overlay .main-box .confirmation a.resend-code {
+  left: 20%;
+  bottom: 25px;
+}
+.auth-layer .overlay .main-box .confirmation a.go-to-login {
+  right: 20%;
+  bottom: 25px;
 }
 @keyframes border-light {
   0% {
@@ -277,5 +317,21 @@
   }
   to {
     top: -99%;
+  }
+}
+@keyframes m_visible_conf {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes m_unvisible_conf {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
   }
 }/*# sourceMappingURL=style.css.map */
